@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "439363907059",
+    "firebase_url": "https://smartcart-bc745.firebaseio.com",
+    "project_id": "smartcart-bc745",
+    "storage_bucket": "smartcart-bc745.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439363907059:android:0c0637fac811e7ec70b686",
+        "android_client_info": {
+          "package_name": "com.example.smartcart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439363907059-465mt7bau2j71modcfbunbnllcakfrjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartcart",
+            "certificate_hash": "353d6333c05d39227cb62184f38c2d4acc2db174"
+          }
+        },
+        {
+          "client_id": "439363907059-am2nqoup92dj9a25n9s0kfbvgd2tj1n5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUo3quld8svn6HOPG3O_5qRjidAOWbFt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439363907059-am2nqoup92dj9a25n9s0kfbvgd2tj1n5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

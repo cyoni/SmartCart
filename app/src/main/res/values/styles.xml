@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:background">#24B62A</item>
+        <item name="android:statusBarColor">#24B62A</item>
+        <item name="buttonStyle">@style/button_style</item>
+
+
+    </style>
+
+
+    <style name="button_style" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/button_color</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+
+
+</resources>
