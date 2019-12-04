@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/main_background"
     android:layout_height="match_parent"
-    tools:context=".menu"
+    tools:context=".myAccountActivity"
     android:padding="5dp">
 
 
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="10dp"
-        android:onClick="customerLogin"
+        android:onClick="updateAccount"
         android:text="Update Account"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:onClick="managerLogin"
+        android:onClick="logOut"
         android:text="Log out"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"

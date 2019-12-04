@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,12 +27,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        controller Controller = new controller();
 
-        Controller.isCustomerLoggedIn(); // check if the user is logged in TODO
+        // set action bar:
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        View view =getSupportActionBar().getCustomView();
+        ImageView img = view.findViewById(R.id.image_action);
+        img.setImageResource(R.drawable.menu_button);
 
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            openMenu();
+            }
+        });
     }
 
+    private void openMenu() {
+        Intent a= new Intent(this, menu.class); // opens the menu
+        startActivityForResult(a, 0);
+    }
+/*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(a, 0);
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
 }

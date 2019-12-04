@@ -1,64 +1,85 @@
 package com.example.smartcart;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
+import com.example.smartcart.login_signup.login;
+import com.example.smartcart.login_signup.signup;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    Button a;
+
+    int what_fragment=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // set action bar:
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        View view =getSupportActionBar().getCustomView();
+        ImageView img = view.findViewById(R.id.image_action);
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        firstFragment();
     }
 
+    public void firstFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        login fragTop = new login();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.contentFragment, fragTop);
+        ft.commit();
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
-        // If you don't have res/menu, just create a directory named "menu" inside res
-        getMenuInflater().inflate(R.menu.back_button, menu);
-        return super.onCreateOptionsMenu(menu);
+        what_fragment=0;
     }
 
-    // handle button activities
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.mybutton) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
+    public void secondFragment(){
+        FragmentManager fm = getSupportFragmentManager();
+        signup fragTop = new signup();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.contentFragment, fragTop);
+        ft.commit();
+        what_fragment=1;
     }
-
 
 
 
 
     public void customerLogin(View view) {
-
-            Intent a = new Intent(this, LoginActivity.class);
-            startActivity(a);
-
-        finish();
-    }
-
-    public void managerLogin(View view) {
-        Intent a = new Intent(this, LoginManagerActivity.class);
+        Intent a = new Intent(this, LoginActivity.class);
         startActivity(a);
-        finish();
     }
+
+    public void changeLayout(View view) {
+
+        if (what_fragment==1) {
+            firstFragment();
+        }
+        else {
+            secondFragment();
+        }
+
+
+    }
+
+
 }

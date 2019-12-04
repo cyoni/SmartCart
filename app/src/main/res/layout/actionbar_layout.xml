@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:ems="17"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:text="Search..."
+
+            />
+        <ImageButton
+            android:id="@+id/image_action"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            android:background="@color/colorPrimary"
+            android:src="@drawable/back_button" />
+
+
+    </TableRow>
+
+</TableLayout>
