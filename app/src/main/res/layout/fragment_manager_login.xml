@@ -32,12 +32,12 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_marginLeft="10dp"
-                android:text="Username: "
+                android:text="email: "
 
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -59,7 +59,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"

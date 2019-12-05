@@ -64,10 +64,10 @@ public class LoginManagerActivity extends AppCompatActivity {
 
 
 
-    public void customerLogin(View view) {
+/*    public void customerLogin(View view) {
         Intent a = new Intent(this, LoginActivity.class);
         startActivity(a);
-    }
+    }*/
 
     public void changeLayout(View view) {
 
@@ -81,8 +81,4 @@ public class LoginManagerActivity extends AppCompatActivity {
 
     }
 
-    public void register(View view) {
-
-
-    }
 }
