@@ -44,7 +44,7 @@ public class myAccountActivity extends AppCompatActivity {
 
     public void logOut(View view) {
         FirebaseAuth.getInstance().signOut();
-        controller.toast(this, "See you!");
+        controller.toast(this, "See next time!" );
         finish();
     }
 }

@@ -24,16 +24,23 @@ import android.widget.Toast;
 import com.example.smartcart.R;
 import com.example.smartcart.controller;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class signup extends Fragment {
     private FirebaseAuth mAuth;
-    View root;
-     Button signup_button;
+    private View root;
+    private Button signup_button;
+    private String username="",email="",password="",address="";
 
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_signup, container, false);
@@ -51,10 +58,10 @@ public class signup extends Fragment {
                         EditText txt_password = root.findViewById(R.id.password);
                         EditText txt_address = root.findViewById(R.id.address);
 
-                        String username = txt_name.getText().toString().trim();
-                        String email = txt_email.getText().toString().trim();
-                        String password = txt_password.getText().toString().trim();
-                        String address = txt_address.getText().toString().trim();
+                         username = txt_name.getText().toString().trim();
+                         email = txt_email.getText().toString().trim();
+                         password = txt_password.getText().toString().trim();
+                         address = txt_address.getText().toString().trim();
 
 
                         if (username.length() == 0) {controller.toast(getContext(),"Enter your name");txt_name.requestFocus();  showKeyboard(txt_name);}
@@ -62,14 +69,9 @@ public class signup extends Fragment {
                         else if (password.length() == 0) {controller.toast(getContext(), "Choose a password"); txt_password.requestFocus();showKeyboard(txt_password);}
                         else if (address.length() == 0) {controller.toast(getContext(), "Enter your address"); showKeyboard(txt_address);}
                         else{
-
                         signup_button.setEnabled(false);
-                        signup_button.setText("SIGNING UP..");
-
-
+                        signup_button.setText("SIGNING UP...");
                         createAccount(email, password);
-
-
                         }
                     }
                 });
@@ -77,8 +79,6 @@ public class signup extends Fragment {
     }
 
     private void createAccount(final String email, String password) {
-
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -86,11 +86,13 @@ public class signup extends Fragment {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                         //    Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+
                             controller.toast(getContext(), "Welcome " + email + "!");
+                            setAccount();
                             getActivity().finish();
                         } else {
                             Log.w(getTag(), "createUserWithEmail:failure", task.getException());
+                            // TODO check if the account already exists
                         controller.toast(getContext(), "Sorry. We could not create your account right now");
                        signup_button.setText("Sign up");
                        signup_button.setEnabled(true);
@@ -101,11 +103,40 @@ public class signup extends Fragment {
                 });
     }
 
+    private void setAccount() {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+
+        Map<String, Object> User = new HashMap<>();
+
+        User.put("name", username);
+        User.put("address", address);
+        User.put("accountID", "0");
+
+        db.collection("users").document(user.getUid())
+                .set(User)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+
+    }
+
     private void showKeyboard(View what) {
         what.requestFocus();
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(what, InputMethodManager.SHOW_IMPLICIT);
     }
-
-
 }
