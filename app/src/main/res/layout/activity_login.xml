@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity" >
-
-
+    
     <Button
         android:id="@+id/button10"
         android:layout_width="match_parent"
