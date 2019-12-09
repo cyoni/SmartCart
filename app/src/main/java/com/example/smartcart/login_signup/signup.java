@@ -30,7 +30,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.kusu.loadingbutton.LoadingButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,7 +74,8 @@ public class signup extends Fragment {
                         else if (address.length() == 0) {controller.toast(getContext(), "Enter your address"); showKeyboard(txt_address);}
                         else{
                         signup_button.setEnabled(false);
-                        signup_button.setText("SIGNING UP...");
+                        LoadingButton loadingButton = (LoadingButton)signup_button; loadingButton.showLoading();
+                            signup_button.setText("SIGNING UP...");
                         createAccount(email, password);
                         }
                     }
@@ -84,11 +89,8 @@ public class signup extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                        //    Log.d(TAG, "createUserWithEmail:success");
-
+                            setAccount(); // update user's profile
                             controller.toast(getContext(), "Welcome " + email + "!");
-                            setAccount();
                             getActivity().finish();
                         } else {
                             Log.w(getTag(), "createUserWithEmail:failure", task.getException());
@@ -96,42 +98,25 @@ public class signup extends Fragment {
                         controller.toast(getContext(), "Sorry. We could not create your account right now");
                        signup_button.setText("Sign up");
                        signup_button.setEnabled(true);
-                        }
+                       LoadingButton loadingButton = (LoadingButton)signup_button; loadingButton.hideLoading();
 
-                        // ...
+                        }
                     }
                 });
     }
 
+
     private void setAccount() {
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //    FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-
-
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+       // mAuth = FirebaseAuth.getInstance();
         Map<String, Object> User = new HashMap<>();
-
         User.put("name", username);
+        User.put("email", email);
         User.put("address", address);
         User.put("accountID", "0");
-
-        db.collection("users").document(user.getUid())
-                .set(User)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
-
+        mDatabase.child("users").child(user.getUid()).setValue(User);
     }
 
     private void showKeyboard(View what) {

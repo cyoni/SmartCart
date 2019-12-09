@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.kusu.loadingbutton.LoadingButton;
 
 
 public class login extends Fragment {
@@ -54,6 +55,7 @@ public class login extends Fragment {
                         if (email.length() == 0) {controller.toast(getContext(),"Enter your email"); txt_email.requestFocus(); showKeyboard(txt_email);}
                         else if (password.length() == 0) {controller.toast(getContext(), "Enter your password"); txt_password.requestFocus(); showKeyboard(txt_password);}
                         else{
+                            LoadingButton loadingButton = (LoadingButton) login_button; loadingButton.showLoading();
                             login_button.setEnabled(false);
                             login_button.setText("Logging in..");
                             connect(email, password);
@@ -82,9 +84,11 @@ public class login extends Fragment {
                           controller.toast(getContext(), "Password/email is wrong");
                           login_button.setEnabled(true);
                           login_button.setText("Log in");
+                          LoadingButton loadingButton = (LoadingButton) login_button; loadingButton.hideLoading();
+
+
                          }
 
-                         // ...
                      }
                  });
 

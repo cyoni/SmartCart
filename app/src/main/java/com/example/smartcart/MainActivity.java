@@ -17,7 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,11 +32,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
+import com.kusu.loadingbutton.LoadingButton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,62 +68,10 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(a, 0);
     }
 
+
     public void addSomething(View view) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        user.getIdToken();
-        user
-  /*
 
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(user.getUid()).child("username").setValue("ghggggg");*/
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
-        Map<String, Object> city = new HashMap<>();
-        city.put("name", "Los Angeles");
-        city.put("state", "CA");
-        city.put("country", "UScvxvA");
-
-        db.collection("users").document(user.getEmail())
-                .set(city)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
-
-        controller.toast(this, "done");
 
 
     }
-/*
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    // handle button activities
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.mybutton) {
-            Intent a= new Intent(this, menu.class); // opens the menu
-            startActivityForResult(a, 0);
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
-
 }
