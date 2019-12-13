@@ -1,19 +1,10 @@
 package com.example.smartcart;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-/*
-this class contains static algorithms
-*/
-public class controller {
 
+public class controller {
 
 
 

@@ -1,6 +1,7 @@
 package com.example.smartcart.login_signup;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -21,8 +22,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartcart.MainActivity;
 import com.example.smartcart.R;
 import com.example.smartcart.controller;
+import com.example.smartcart.userBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,10 +37,13 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.kusu.loadingbutton.LoadingButton;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class signup extends Fragment {
@@ -75,7 +81,6 @@ public class signup extends Fragment {
                         else{
                         signup_button.setEnabled(false);
                         LoadingButton loadingButton = (LoadingButton)signup_button; loadingButton.showLoading();
-                            signup_button.setText("SIGNING UP...");
                         createAccount(email, password);
                         }
                     }
@@ -107,17 +112,16 @@ public class signup extends Fragment {
 
 
     private void setAccount() {
-    //    FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-       // mAuth = FirebaseAuth.getInstance();
         Map<String, Object> User = new HashMap<>();
         User.put("name", username);
         User.put("email", email);
         User.put("address", address);
-        User.put("accountID", "0");
+        User.put("accountType", "0");
         mDatabase.child("users").child(user.getUid()).setValue(User);
-    }
+        new userBoard( "0",username,  email,  address);
+         }
 
     private void showKeyboard(View what) {
         what.requestFocus();

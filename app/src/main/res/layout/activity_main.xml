@@ -30,9 +30,16 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="addSomething"
-        android:text="Button" />
+        android:layout_marginTop="30dp"
+        android:text="Start Shopping" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="addSomething"
+        android:text="Show History" />
 
 
 </LinearLayout>

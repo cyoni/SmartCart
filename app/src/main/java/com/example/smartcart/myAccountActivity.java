@@ -1,16 +1,24 @@
 package com.example.smartcart;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class myAccountActivity extends AppCompatActivity {
 
@@ -37,14 +45,14 @@ public class myAccountActivity extends AppCompatActivity {
 
 
 
-
-    public void updateAccount(View view) {
-        controller.toast(this, "coming soon!");
-    }
-
     public void logOut(View view) {
         FirebaseAuth.getInstance().signOut();
         controller.toast(this, "See next time!" );
         finish();
+    }
+
+    public void profileAccount(View view) {
+        Intent a = new Intent(this, userProfileActivity.class);
+        startActivity(a);
     }
 }

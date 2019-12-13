@@ -13,8 +13,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.smartcart.MainActivity;
 import com.example.smartcart.R;
 import com.example.smartcart.controller;
+import com.example.smartcart.userBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -72,7 +74,6 @@ public class signup extends Fragment {
                         else{
                             signup_button.setEnabled(false);
                             LoadingButton loadingButton = (LoadingButton) signup_button; loadingButton.showLoading();
-                            signup_button.setText("SIGNING UP");
                             createAccount(email, password);
                         }
                     }
@@ -87,13 +88,13 @@ public class signup extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             setAccount(); // update user's profile
+
                             controller.toast(getContext(), "Welcome " + email + "!");
                             getActivity().finish();
                         } else {
                             Log.w(getTag(), "createUserWithEmail:failure", task.getException());
                             // TODO check if the account already exists
                             controller.toast(getContext(), "Sorry. We could not create your account right now");
-                            signup_button.setText("Sign up");
                             signup_button.setEnabled(true);
                             LoadingButton loadingButton = (LoadingButton) signup_button; loadingButton.hideLoading();
 
@@ -112,9 +113,10 @@ public class signup extends Fragment {
         User.put("storeID", storeId);
         User.put("storeAddress", storeAddress);
         User.put("nameOfStore", nameOfStore);
-        User.put("accountID", "1");
-
-        mDatabase.child("users").child(user.getUid()).setValue(User);
+        User.put("accountType", "1");
+        mDatabase.child("users").child(user.getUid()).setValue(User); // Post data to the fire-base
+       userBoard u = new userBoard("1",  username,  email,  address,  storeAddress,  Integer.parseInt(storeId),  nameOfStore);
+       
     }
 
     private void showKeyboard(View what) {

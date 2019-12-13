@@ -19,13 +19,13 @@
         android:textSize="50dp" />
 
     <Button
-        android:id="@+id/update_account"
+        android:id="@+id/profileAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="10dp"
-        android:onClick="updateAccount"
-        android:text="Update Account"
+        android:onClick="profileAccount"
+        android:text="My Profile"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
