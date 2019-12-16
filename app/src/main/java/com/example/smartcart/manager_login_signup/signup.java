@@ -116,7 +116,7 @@ public class signup extends Fragment {
         User.put("accountType", "1");
         mDatabase.child("users").child(user.getUid()).setValue(User); // Post data to the fire-base
        userBoard u = new userBoard("1",  username,  email,  address,  storeAddress,  Integer.parseInt(storeId),  nameOfStore);
-       
+
     }
 
     private void showKeyboard(View what) {

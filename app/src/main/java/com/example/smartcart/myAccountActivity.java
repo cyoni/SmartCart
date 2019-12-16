@@ -47,7 +47,11 @@ public class myAccountActivity extends AppCompatActivity {
 
     public void logOut(View view) {
         FirebaseAuth.getInstance().signOut();
-        controller.toast(this, "See next time!" );
+        controller.toast(this, "See you next time!" );
+
+        Intent a = new Intent(this, MainActivity.class);
+        a.putExtra("userMetaData", "");
+        startActivity(a);
         finish();
     }
 

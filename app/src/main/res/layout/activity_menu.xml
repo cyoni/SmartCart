@@ -44,12 +44,13 @@
         tools:layout_editor_absoluteY="70dp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_update"
         android:layout_width="match_parent"
-        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:onClick="comingSoon"
-        android:text="...."
+        android:text="Update Store"
+        android:visibility="gone"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

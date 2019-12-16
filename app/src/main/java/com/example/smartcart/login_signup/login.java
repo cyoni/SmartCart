@@ -1,6 +1,7 @@
 package com.example.smartcart.login_signup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,9 +22,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartcart.LoginActivity;
 import com.example.smartcart.MainActivity;
 import com.example.smartcart.R;
 import com.example.smartcart.controller;
+import com.example.smartcart.menu;
 import com.example.smartcart.userBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +48,7 @@ public class login extends Fragment {
     View root;
     private FirebaseAuth mAuth;
     Button login_button;
+    userBoard _user;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
@@ -87,22 +91,27 @@ public class login extends Fragment {
                          if (task.isSuccessful()) {
                              FirebaseUser user = mAuth.getCurrentUser();
                              final String E = email;
-                         /*    controller c = new controller(new MainActivity());
-                             c.getUserInfo(); // download user's info*/
                              DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                              mAuth = FirebaseAuth.getInstance();
 
-                /*             SharedPreferences mPrefs =  MainActivity.getContextOfApplication().getSharedPreferences("myUser", getContext().MODE_PRIVATE);
-                             SharedPreferences.Editor prefsEditor = mPrefs.edit();
-                             Gson gson = new Gson();
-                             String json = gson.toJson(new userBoard("0", "fhjg", "fghgf", "Ffff"));
-                             prefsEditor.putString("myUser", json);
-                             prefsEditor.commit();
-*/
 
+                             mDatabase.child(String.format("users")).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                 @Override
+                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                     _user = dataSnapshot.getValue(userBoard.class);
 
-                             controller.toast(getContext(), "Welcome back " + E);
-                             getActivity().finish();
+                                     Gson gson = new Gson();
+                                     String metaData = gson.toJson(_user); // convert metaData to JSON
+                                     sendData(metaData);
+                                 }
+
+                                 @Override
+                                 public void onCancelled(DatabaseError databaseError) {
+                                 }
+                             });
+
+                             // send USER to mainActivity
+
                          } else {
                              // If sign in fails, display a message to the user.
                           controller.toast(getContext(), "Password/email is wrong");
@@ -115,6 +124,18 @@ public class login extends Fragment {
 
                      }
                  });
+
+    }
+
+    private void sendData(String s){
+        controller.toast(getContext(), "Welcome back " + _user.getEmail());
+
+        Intent a = new Intent(getActivity() , MainActivity.class);
+        a.putExtra("userMetaData", s);
+        startActivity(a);
+
+
+        getActivity().finish();
 
     }
 

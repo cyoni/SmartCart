@@ -1,18 +1,13 @@
 package com.example.smartcart;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,17 +19,19 @@ import com.google.gson.Gson;
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    userBoard _user;
+    userBoard _user = null;
 
 
     public static Context contextOfApplication;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+/*         mAuth  = FirebaseAuth.getInstance();// get user
+         mDatabase = FirebaseDatabase.getInstance().getReference();*/
+
         contextOfApplication = getApplicationContext();
 
         // set action bar:
@@ -51,25 +48,34 @@ public class MainActivity extends AppCompatActivity {
             openMenu();
             }
         });
+
+
+        Gson gson = new Gson(); // set user Data
+        _user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
     }
+
 
     public static Context getContextOfApplication(){
         return contextOfApplication;
     }
 
-    private void openMenu() {
+    private void openMenu() { //open menu button
+        Gson gson = new Gson();
+        String metaData = gson.toJson(_user); // convert metaData to JSON
+
+
+
         Intent a = new Intent(this, menu.class); // opens the menu
-        startActivityForResult(a, 0);
+        a.putExtra("userMetaData", metaData);
+        startActivity(a);
+
     }
 
 
-
     public void addSomething(final View view) {
-       /* SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = mPrefs.getString("myUser", "");
-        userBoard obj = gson.fromJson(json, userBoard.class);
-        controller.toast(this, obj.getAddress());*/
-
+/*    *//*    Gson gson = new Gson();
+       userBoard user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
+        controller.toast(this, user.getAddress());*//*
+    controller.toast(this, _user.getAddress());*/
     }
 }

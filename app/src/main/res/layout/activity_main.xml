@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="addSomething"
-        android:text="Show History" />
+        android:text="Show Purchase History" />
 
 
 </LinearLayout>
