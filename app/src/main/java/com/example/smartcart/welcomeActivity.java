@@ -36,7 +36,7 @@ public class welcomeActivity extends AppCompatActivity {
         getMetaData(); // get user data in case he is connected
     }
 
-
+//testing
 
     public void getMetaData() {
 
