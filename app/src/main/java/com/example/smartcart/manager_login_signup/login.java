@@ -49,7 +49,6 @@ public class login extends Fragment {
                         else if (password.length() == 0) {controller.toast(getContext(), "Enter your password"); txt_password.requestFocus(); showKeyboard(txt_password);}
                         else{
                             login_button.setEnabled(false);
-                            login_button.setText("Logging in..");
                             LoadingButton loadingButton = (LoadingButton)login_button; loadingButton.showLoading();
                             connect(email, password);
                         }

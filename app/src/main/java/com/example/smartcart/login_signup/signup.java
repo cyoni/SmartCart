@@ -1,6 +1,7 @@
 package com.example.smartcart.login_signup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,8 +35,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.kusu.loadingbutton.LoadingButton;
@@ -50,6 +54,7 @@ public class signup extends Fragment {
     private FirebaseAuth mAuth;
     private View root;
     private Button signup_button;
+    private userBoard _user;
     private String username="",email="",password="",address="";
 
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -95,8 +100,24 @@ public class signup extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             setAccount(); // update user's profile
-                            controller.toast(getContext(), "Welcome " + email + "!");
-                            getActivity().finish();
+                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                            mDatabase.child(String.format("users")).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    _user = dataSnapshot.getValue(userBoard.class);
+
+                                    Gson gson = new Gson();
+                                    String metaData = gson.toJson(_user); // convert metaData to JSON
+
+                                    setData(metaData);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+
                         } else {
                             Log.w(getTag(), "createUserWithEmail:failure", task.getException());
                             // TODO check if the account already exists
@@ -110,6 +131,17 @@ public class signup extends Fragment {
                 });
     }
 
+    private void setData(String s){
+
+
+        controller.toast(getContext(), "Welcome " + email + "!");
+        Intent a = new Intent(getActivity() , MainActivity.class);
+        a.putExtra("userMetaData", s);
+        startActivity(a);
+
+        getActivity().finish();
+
+    }
 
     private void setAccount() {
         FirebaseUser user = mAuth.getCurrentUser();

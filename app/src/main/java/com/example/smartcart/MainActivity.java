@@ -55,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // getIntent() should always return the most recent
+
+        Gson gson = new Gson(); // set user Data
+        _user = gson.fromJson(intent .getStringExtra("userMetaData"), userBoard.class);
+        setIntent(intent);
+    }
+
     public static Context getContextOfApplication(){
         return contextOfApplication;
     }
