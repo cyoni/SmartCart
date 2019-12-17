@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShoppingActivity"></activity>
+        <activity android:name=".LastShoppingActivity"></activity>
+        <activity android:name=".ShoppingActivity" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity android:name=".userProfileActivity" />
         <activity android:name=".myAccountActivity" />
         <activity android:name=".LoginManagerActivity" />

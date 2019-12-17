@@ -164,14 +164,12 @@
                 android:id="@+id/signup_button"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="5dp"
                 android:layout_span="2"
                 android:text="Sign up"
-                android:textColor="@color/white"
-                />
-
+                android:textColor="@color/white" />
 
 
         </TableRow>
