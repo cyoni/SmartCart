@@ -89,4 +89,9 @@ public class MainActivity extends AppCompatActivity {
         controller.toast(this, user.getAddress());*//*
     controller.toast(this, _user.getAddress());*/
     }
+
+    public void shopping(View view) {
+        Intent s = new Intent(this,ShoppingActivity.class);
+        startActivity(s);
+    }
 }
