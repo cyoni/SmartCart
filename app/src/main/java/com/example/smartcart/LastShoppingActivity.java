@@ -22,7 +22,7 @@ public class LastShoppingActivity extends AppCompatActivity {
 
 
     }
-
+//adding comment for commit purpose
 
     public void lastShop2(View view) {
         Button b = (Button) findViewById(R.id.button9);
