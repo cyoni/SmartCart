@@ -110,4 +110,16 @@ public class menu extends AppCompatActivity {
         controller.toast(this, user.getAddress());
         //controller.toast(this, "Coming soon!");
     }
+
+    public void addItem(View view) {
+        if (user.getAccountType().equals("1")) {
+            Intent a = new Intent(this, addItemActivity.class);
+            startActivity(a);
+            finish();
+        }
+        else{
+            controller.toast(this, "Permission denied");
+        }
+
+    }
 }
