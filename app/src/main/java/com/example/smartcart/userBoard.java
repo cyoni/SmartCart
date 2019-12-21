@@ -1,11 +1,14 @@
 package com.example.smartcart;
 
 
+import java.util.HashMap;
+
 public class userBoard {
     private String accountType;
     private String name, email, address;
     private String storeName, storeAddress;
     private int storeID;
+    private HashMap<String,String> hm=new HashMap<>();
     private userBoard user;
 
     public userBoard(){}
@@ -28,6 +31,7 @@ public class userBoard {
         this.name = u.name;
         this.email = u.email;
         this.address = u.address;
+        this.hm = new HashMap<String,String>(u.hm);
 
 
     }
@@ -63,6 +67,7 @@ public class userBoard {
     }
 
     public boolean isManager(){
+        if (accountType==null) return false;
         if (accountType.equals(1)) return true;
         else
             return false;
@@ -92,6 +97,8 @@ public class userBoard {
     public int storeID() {
         return storeID;
     }
+
+    public HashMap<String,String> getHashMap() { return hm;}
 
 
 }
