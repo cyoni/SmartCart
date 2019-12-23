@@ -59,12 +59,15 @@ public class addItemActivity extends AppCompatActivity {
         EditText t_name = findViewById(R.id.name);
         EditText t_price = findViewById(R.id.price);
         EditText t_quantity = findViewById(R.id.quantity);
+        EditText t_cat = findViewById(R.id.cat);
 
+
+        String cat = t_cat.getText().toString().trim();
         String name = t_name.getText().toString().trim();
         String price = t_price.getText().toString().trim();
         String quantity = t_quantity.getText().toString().trim();
 
-        if (name.length() == 0 || price.length() == 0 || quantity.length() == 0){
+        if (cat.length() == 0 || name.length() == 0 || price.length() == 0 || quantity.length() == 0){
             controller.toast(this, "Please fill all values!");
             return;
         }
@@ -76,7 +79,7 @@ public class addItemActivity extends AppCompatActivity {
         newItem.put("price", Integer.valueOf(price));
         newItem.put("quantity",Integer.valueOf(quantity));
 
-        mDatabase.child("items").child(name).setValue(newItem);
+        mDatabase.child("items").child(cat).child(name).setValue(newItem);
 
         controller.toast(this, name + " has been added!");
         finish();
