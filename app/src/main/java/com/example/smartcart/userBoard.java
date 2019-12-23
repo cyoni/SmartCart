@@ -5,14 +5,12 @@ import java.util.HashMap;
 
 public class userBoard {
     private String accountType;
-    private String name, address;
-    String email;
+    private String name, email, address;
+
     private String storeName, storeAddress;
     private int storeID;
     private HashMap<String,String> hm=new HashMap<>();
-    private userBoard user;
 
-    public userBoard(){}
 
     public userBoard(String accountType, String name, String email, String address){
         this.accountType = accountType;
@@ -45,8 +43,7 @@ public class userBoard {
     }
 
     public boolean isManager(){
-        if (accountType==null) return false;
-        if (accountType.equals(1)) return true;
+        if (accountType.equals("1")) return true;
         else
             return false;
     }

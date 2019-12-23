@@ -47,11 +47,6 @@ public class menu extends AppCompatActivity {
         metaData = gson.toJson(user);
 
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         Button addItems_button = findViewById(R.id.button12);
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -62,24 +57,25 @@ public class menu extends AppCompatActivity {
             Button b = findViewById(R.id.managerLogin);
             // check if user is manager:
 
-             if (user.isManager()){ // if you're manager then..
-                 Button buttonUpdate = findViewById(R.id.button_update);
-                 buttonUpdate.setVisibility(View.VISIBLE);
-
-                 // add items for manager button:
+            if (user.isManager()){ // if you're manager then..
+                // add items for manager button:
                 addItems_button.setVisibility(View.VISIBLE);
 
-             }
+            }
 
+            controller.toast(this, user.isManager() +" !");
 
             b.setVisibility(View.GONE); // if a user is connected then hide manager login button but leave the other button - just change its value
         }
 
-         if (user == null || user.isManager() == false){
+        if (user == null || user.isManager() == false){
             addItems_button.setVisibility(View.GONE);
         }
 
+
     }
+
+
 
     // button "manager login or sign up"
     public void managerLogin(View view) {
