@@ -113,9 +113,5 @@ public class menu extends AppCompatActivity {
 
     }
 
-    public void exit(View view) {
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
-    }
+
 }
