@@ -89,8 +89,6 @@ public class login extends Fragment {
                      @Override
                      public void onComplete(@NonNull Task<AuthResult> task) {
                          if (task.isSuccessful()) {
-                             FirebaseUser user = mAuth.getCurrentUser();
-                             final String E = email;
                              DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                              mAuth = FirebaseAuth.getInstance();
 
@@ -100,6 +98,12 @@ public class login extends Fragment {
                                  public void onDataChange(DataSnapshot dataSnapshot) {
                                      _user = dataSnapshot.getValue(userBoard.class);
 
+                                          if (_user == null){
+                                                controller.toast(MainActivity.getContextOfApplication(), "Account is corrupt!");
+                                                getActivity().finish();
+                                                return;
+                                          }
+
                                      Gson gson = new Gson();
                                      String metaData = gson.toJson(_user); // convert metaData to JSON
                                      sendData(metaData);
@@ -107,6 +111,9 @@ public class login extends Fragment {
 
                                  @Override
                                  public void onCancelled(DatabaseError databaseError) {
+                                     controller.toast(MainActivity.getContextOfApplication(), "Error 2256");
+                                     getActivity().finish();
+
                                  }
                              });
 
