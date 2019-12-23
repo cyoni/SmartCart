@@ -63,8 +63,6 @@ public class menu extends AppCompatActivity {
 
             }
 
-            controller.toast(this, user.isManager() +" !");
-
             b.setVisibility(View.GONE); // if a user is connected then hide manager login button but leave the other button - just change its value
         }
 

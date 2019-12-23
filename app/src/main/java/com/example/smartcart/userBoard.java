@@ -11,6 +11,7 @@ public class userBoard {
     private int storeID;
     private HashMap<String,String> hm=new HashMap<>();
 
+    public userBoard(){}
 
     public userBoard(String accountType, String name, String email, String address){
         this.accountType = accountType;
