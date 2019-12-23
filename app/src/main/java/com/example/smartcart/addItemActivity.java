@@ -83,6 +83,9 @@ public class addItemActivity extends AppCompatActivity {
 
         controller.toast(this, name + " has been added!");
 
+         loadingButton = (LoadingButton)submit; loadingButton.hideLoading();
+
+
         t_name.setText("");
         t_price.setText("");
         t_quantity.setText("");
