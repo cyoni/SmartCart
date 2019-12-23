@@ -19,8 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 public class myAccountActivity extends AppCompatActivity {
+    userBoard user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,16 @@ public class myAccountActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
         View view =getSupportActionBar().getCustomView();
         ImageView img = view.findViewById(R.id.image_action);
-
-
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+
+        Gson gson = new Gson(); // get user object
+        user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
     }
 
 
@@ -56,7 +60,11 @@ public class myAccountActivity extends AppCompatActivity {
     }
 
     public void profileAccount(View view) {
+        Gson gson = new Gson();
+        String metaData = gson.toJson(user);
+
         Intent a = new Intent(this, userProfileActivity.class);
+        a.putExtra("userMetaData", metaData);
         startActivity(a);
     }
 }

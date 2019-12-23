@@ -5,7 +5,8 @@ import java.util.HashMap;
 
 public class userBoard {
     private String accountType;
-    private String name, email, address;
+    private String name, address;
+    String email;
     private String storeName, storeAddress;
     private int storeID;
     private HashMap<String,String> hm=new HashMap<>();
@@ -35,30 +36,7 @@ public class userBoard {
 
 
     }
-/*
-    public interface MyCallback {
-        void onCallback(userBoard value);
-    }
 
-
-    public void getMetaData(MyCallback myCallback) {
-        final MyCallback myCall = myCallback;
-        FirebaseAuth mAuth  = FirebaseAuth.getInstance();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child(String.format("users")).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userBoard u =  dataSnapshot.getValue(userBoard.class);
-                myCall.onCallback(u);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-    }
-
-    */
 
     // getters:
 

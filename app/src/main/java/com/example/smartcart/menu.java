@@ -17,8 +17,7 @@ public class menu extends AppCompatActivity {
     private FirebaseAuth mAuth;
     Button a;
     userBoard user;
-    String email;
-
+    String metaData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,9 @@ public class menu extends AppCompatActivity {
         Gson gson = new Gson();
         user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
 
+        metaData = gson.toJson(user);
+
+
     }
 
     @Override
@@ -58,7 +60,6 @@ public class menu extends AppCompatActivity {
             Button a = findViewById(R.id.guestAccount); // user login button
             a.setText("My Account ("+ user.getEmail() +")");
             Button b = findViewById(R.id.managerLogin);
-            email = user.getEmail();
             // check if user is manager:
 
              if (user.isManager()){ // if you're manager then..
@@ -73,9 +74,9 @@ public class menu extends AppCompatActivity {
 
             b.setVisibility(View.GONE); // if a user is connected then hide manager login button but leave the other button - just change its value
         }
-        else if (user == null || user.isManager() == false){
+
+         if (user == null || user.isManager() == false){
             addItems_button.setVisibility(View.GONE);
-            email = "";
         }
 
     }
@@ -89,8 +90,9 @@ public class menu extends AppCompatActivity {
 
 
     public void customerLogin(View view) {
-        if (a.getText().equals("My Account ("+ email +")")){
+        if (user != null){
             Intent a = new Intent(this, myAccountActivity.class);
+            a.putExtra("userMetaData", metaData);
             startActivity(a);
         }
         else {
@@ -101,12 +103,19 @@ public class menu extends AppCompatActivity {
     }
 
     public void comingSoon(View view) {
-        controller.toast(this, user.getAddress());
+        controller.toast(this, "Coming soon");
     }
 
     public void addItem(View view) {
-            Intent a = new Intent(this, addItemActivity.class);
-            startActivity(a);
-            finish();
+          Intent a = new Intent(this, addItemActivity.class);
+        a.putExtra("userMetaData", metaData);
+        startActivity(a);
+
+    }
+
+    public void exit(View view) {
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }

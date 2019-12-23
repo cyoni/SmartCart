@@ -25,7 +25,6 @@
 
         <TableRow
             android:id="@+id/t1"
-            android:visibility="gone"
             android:layout_marginTop="50dp"
             >
 
@@ -51,7 +50,6 @@
 
     <TableRow
         android:id="@+id/t2"
-        android:visibility="gone"
         >
 
         <TextView
@@ -74,11 +72,10 @@
     </TableRow>
     <TableRow
         android:id="@+id/t3"
-        android:visibility="gone"
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Address:"
@@ -97,15 +94,14 @@
     </TableRow>
     <TableRow
         android:id="@+id/t4"
-        android:visibility="gone"
     >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Account Type: "
-        android:textSize="20sp" />
+        <TextView
+            android:layout_width="11dp"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Account Type: "
+            android:textSize="20sp" />
 
     <TextView
         android:id="@+id/accType"
@@ -120,18 +116,5 @@
     </TableRow>
 
 
-    <TableRow
-        android:gravity="center"
-        android:layout_marginTop="200dp"
-        >
 
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </TableRow>
-
-    <TableRow/>
     </TableLayout>

@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 public class userProfileActivity extends AppCompatActivity {
     userBoard user;
@@ -34,69 +35,38 @@ public class userProfileActivity extends AppCompatActivity {
         View view =getSupportActionBar().getCustomView();
         ImageView img = view.findViewById(R.id.image_action);
 
-
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
 
-        FirebaseAuth mAuth  = FirebaseAuth.getInstance();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        Gson gson = new Gson(); // get user object
+        user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
 
-        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        user  = dataSnapshot.getValue(userBoard.class);
-
-                        TextView userName = findViewById(R.id.name);
-                        TextView email = findViewById(R.id.email);
-                        TextView address = findViewById(R.id.address);
-                        TextView acctype = findViewById(R.id.accType);
+        // set data to fields
+        TextView userName = findViewById(R.id.name);
+        TextView email = findViewById(R.id.email);
+        TextView address = findViewById(R.id.address);
+        TextView acctype = findViewById(R.id.accType);
 
 
-                       userName.setText(user.getName());
-                        email.setText(user.getEmail());
-                        address.setText(user.getAddress());
+        userName.setText(user.getName());
+        email.setText(user.getEmail());
+        address.setText(user.getAddress());
 
-                        if (user.getAccountType().equals("0"))
-                            acctype.setText("CUSTOMER");
-                            else
-                            acctype.setText("MANAGER");
-
-                        TableRow t1 = findViewById(R.id.t1);
-                        t1.setVisibility(View.VISIBLE);
-                        TableRow t2 = findViewById(R.id.t2);
-                        t2.setVisibility(View.VISIBLE);
-                        TableRow t3 = findViewById(R.id.t3);
-                        t3.setVisibility(View.VISIBLE);
-                        TableRow t4 = findViewById(R.id.t4);
-                        t4.setVisibility(View.VISIBLE);
-
-
-                        ProgressBar p = findViewById(R.id.progressBar1);
-                        p.setVisibility(View.GONE);
-
-                    }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                }
-        );
-
+        if (!user.isManager())
+            acctype.setText("CUSTOMER");
+        else
+            acctype.setText("MANAGER");
 
     }
-
-
 
 }
+
+
+
+
+
