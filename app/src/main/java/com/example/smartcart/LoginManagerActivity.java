@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.smartcart.manager_login_signup.login;
+
+import com.example.smartcart.login_signup.login;
 import com.example.smartcart.manager_login_signup.signup;
 
 public class LoginManagerActivity extends AppCompatActivity {
