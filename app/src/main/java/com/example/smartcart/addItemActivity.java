@@ -82,7 +82,11 @@ public class addItemActivity extends AppCompatActivity {
         mDatabase.child("items").child(cat).child(name).setValue(newItem);
 
         controller.toast(this, name + " has been added!");
-        finish();
+
+        t_name.setText("");
+        t_price.setText("");
+        t_quantity.setText("");
+        t_cat.setText("");
 
     }
 }
