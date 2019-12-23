@@ -51,21 +51,29 @@ public class menu extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+        Button addItems_button = findViewById(R.id.button12);
         // Check if user is signed in (non-null) and update UI accordingly.
 
         if (user != null){
-            Button a = findViewById(R.id.guestAccount);
+            Button a = findViewById(R.id.guestAccount); // user login button
             a.setText("My Account ("+ user.getEmail() +")");
             Button b = findViewById(R.id.managerLogin);
             email = user.getEmail();
             // check if user is manager:
 
-             if (user.isManager()){
+             if (user.isManager()){ // if you're manager then..
                  Button buttonUpdate = findViewById(R.id.button_update);
                  buttonUpdate.setVisibility(View.VISIBLE);
+
+                 // add items for manager button:
+                addItems_button.setVisibility(View.VISIBLE);
+
+             }
+             else{
+                 addItems_button.setVisibility(View.GONE);
              }
 
-            b.setVisibility(View.GONE);
+            b.setVisibility(View.GONE); // if a user is connected then hide manager login button but leave the other button - just change its value
         }
         else{
             email = "";
@@ -73,23 +81,12 @@ public class menu extends AppCompatActivity {
 
     }
 
-
-
-
-    /*  public void customerLogin(View view) {
-          Intent a = new Intent(this, LoginActivity.class);
-          startActivity(a);
-          finish();
-      }
-  */
+    // button "manager login or sign up"
     public void managerLogin(View view) {
         Intent a = new Intent(this, LoginManagerActivity.class);
         startActivity(a);
         finish();
     }
-
-
-
 
 
     public void customerLogin(View view) {
@@ -105,21 +102,12 @@ public class menu extends AppCompatActivity {
     }
 
     public void comingSoon(View view) {
-
-
         controller.toast(this, user.getAddress());
-        //controller.toast(this, "Coming soon!");
     }
 
     public void addItem(View view) {
-        if (user.getAccountType().equals("1")) {
             Intent a = new Intent(this, addItemActivity.class);
             startActivity(a);
             finish();
-        }
-        else{
-            controller.toast(this, "Permission denied");
-        }
-
     }
 }
