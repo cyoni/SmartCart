@@ -178,8 +178,13 @@ public class MainActivity extends AppCompatActivity {
     }
     public void lastShopping(View view)
     {
+        if (_user == null){
+            Intent s = new Intent(this, LoginActivity.class);
+            startActivity(s);
+        }
+        else{
         Intent s = new Intent(this,LastShoppingActivity.class);
-        startActivity(s);
+        startActivity(s);}
     }
 
 }

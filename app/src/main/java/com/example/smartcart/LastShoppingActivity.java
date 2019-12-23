@@ -55,9 +55,9 @@ public class LastShoppingActivity extends AppCompatActivity {
                         t.setText(output);
 
                     }
-                    else{
-                        controller.toast(getApplicationContext(), "Input is not ok");
-                    }
+                    else if (data.equals("null"))
+                        controller.toast(getApplicationContext(), "Last cart is empty");
+                          else controller.toast(getApplicationContext(), "Input is not ok ");
 
                 }
                 else{
