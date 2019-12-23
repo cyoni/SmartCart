@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LastShoppingActivity"></activity>
-        <activity android:name=".ShoppingActivity" />
+        <activity android:name=".addItemActivity"></activity>
+        <activity android:name=".LastShoppingActivity" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />

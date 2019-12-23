@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "439363907059-quv7edso04dhr6potcaop8dhqtmoagb2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartcart",
+            "certificate_hash": "d1860ab6f7d7fa08d01aa03d908c47c80ddc20a7"
+          }
+        },
+        {
           "client_id": "439363907059-dsemop8c7opeooj1bcvc4k36dtr530cp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
