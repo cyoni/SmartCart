@@ -69,13 +69,12 @@ public class menu extends AppCompatActivity {
                 addItems_button.setVisibility(View.VISIBLE);
 
              }
-             else{
-                 addItems_button.setVisibility(View.GONE);
-             }
+
 
             b.setVisibility(View.GONE); // if a user is connected then hide manager login button but leave the other button - just change its value
         }
-        else{
+        else if (user == null || user.isManager() == false){
+            addItems_button.setVisibility(View.GONE);
             email = "";
         }
 
