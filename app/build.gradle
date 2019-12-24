@@ -43,6 +43,7 @@ dependencies {
     implementation "com.github.koushikcse:LoadingButton:1.5"
     implementation 'com.google.firebase:firebase-database:19.2.0'
 
+    implementation 'com.firebase:firebase-client-android:2.5.0'
 
 
     testImplementation 'junit:junit:4.12'

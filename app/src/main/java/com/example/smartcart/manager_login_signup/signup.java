@@ -1,6 +1,7 @@
 package com.example.smartcart.manager_login_signup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,15 +14,21 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.smartcart.MainActivity;
 import com.example.smartcart.R;
 import com.example.smartcart.controller;
+import com.example.smartcart.userBoard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.kusu.loadingbutton.LoadingButton;
 
 import java.util.HashMap;
@@ -34,6 +41,7 @@ public class signup extends Fragment {
     private Button signup_button;
     private String username="",email="",password="",address="", storeId="", storeAddress="", nameOfStore="";
 
+    private userBoard _user;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_manager_signup, container, false);
         mAuth = FirebaseAuth.getInstance();
@@ -72,7 +80,6 @@ public class signup extends Fragment {
                         else{
                             signup_button.setEnabled(false);
                             LoadingButton loadingButton = (LoadingButton) signup_button; loadingButton.showLoading();
-                            signup_button.setText("SIGNING UP");
                             createAccount(email, password);
                         }
                     }
@@ -87,13 +94,30 @@ public class signup extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             setAccount(); // update user's profile
-                            controller.toast(getContext(), "Welcome " + email + "!");
-                            getActivity().finish();
+
+                            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                            mAuth = FirebaseAuth.getInstance();
+
+
+                            mDatabase.child(String.format("users")).child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    _user = dataSnapshot.getValue(userBoard.class);
+
+                                    Gson gson = new Gson();
+                                    String metaData = gson.toJson(_user); // convert metaData to JSON
+                                    setData(metaData);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+
                         } else {
                             Log.w(getTag(), "createUserWithEmail:failure", task.getException());
                             // TODO check if the account already exists
                             controller.toast(getContext(), "Sorry. We could not create your account right now");
-                            signup_button.setText("Sign up");
                             signup_button.setEnabled(true);
                             LoadingButton loadingButton = (LoadingButton) signup_button; loadingButton.hideLoading();
 
@@ -102,6 +126,17 @@ public class signup extends Fragment {
                 });
     }
 
+
+    private void setData(String s){
+
+        controller.toast(getContext(), "Welcome " + email + "!");
+        Intent a = new Intent(getActivity() , MainActivity.class);
+        a.putExtra("userMetaData", s);
+        startActivity(a);
+
+        getActivity().finish();
+
+    }
     private void setAccount() {
         FirebaseUser user = mAuth.getCurrentUser();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -112,9 +147,10 @@ public class signup extends Fragment {
         User.put("storeID", storeId);
         User.put("storeAddress", storeAddress);
         User.put("nameOfStore", nameOfStore);
-        User.put("accountID", "1");
+        User.put("accountType", "1");
+        mDatabase.child("users").child(user.getUid()).setValue(User); // Post data to the fire-base
+       userBoard u = new userBoard("1",  username,  email,  address,  storeAddress,  Integer.parseInt(storeId),  nameOfStore);
 
-        mDatabase.child("users").child(user.getUid()).setValue(User);
     }
 
     private void showKeyboard(View what) {
