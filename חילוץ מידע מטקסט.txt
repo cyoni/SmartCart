@@ -1,0 +1,71 @@
+       DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("items").child("apple").addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    final HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
+                              String  price = String.valueOf(dataMap.get("price"));
+                                controller.toast(MainActivity.getContextOfApplication() , price)
+                  
+                    }
+          
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+
+
+
+.....
+
+
+מעבר על כל הילדים בפריטים בפעם אחת
+
+
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("items").child(סטרינג שמתקבל בלחיצה על כפתור של קטגוריה).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+
+                    Iterator<DataSnapshot> a = dataSnapshot.getChildren().iterator();
+                    System.out.println(dataSnapshot.getChildrenCount() + "= num");
+                    DataSnapshot tmp;
+
+                    while (a.hasNext()) {
+                        tmp = a.next();
+                        final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
+
+                        String n = dataMap.get("price")+"";
+                        String x = tmp.getKey() + "";
+                        System.out.println("name: " + x + ", price: " + n);
+
+
+                    }
+
+                }
+
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+
+
+        });
+
+
+....
+
+infinite scroll
+
+https://stackoverflow.com/questions/44777989/firebase-infinite-scroll-list-view-load-10-items-on-scrolling
+
+
+https://androidwave.com/pagination-in-recyclerview/
