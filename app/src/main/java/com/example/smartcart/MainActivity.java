@@ -174,12 +174,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void shoppingActivity(View view) {
 
-        Intent s = new Intent(this, shoppingActivity.class);
-        startActivity(s);
-
-    }
     public void lastShopping(View view)
     {
         if (_user == null){
@@ -191,4 +186,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(s);}
     }
 
+    public void shoppingActivity(View view) {
+        Intent a = new Intent(this, shoppingActivity.class);
+        startActivity(a);
+
+    }
 }
