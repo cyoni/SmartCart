@@ -173,7 +173,11 @@ public class MainActivity extends AppCompatActivity {
      ///   System.out.println(phoneNumbers.toString());
     }
 
-    public void shopping(View view) {
+
+    public void shoppingActivity(View view) {
+
+        Intent s = new Intent(this, shoppingActivity.class);
+        startActivity(s);
 
     }
     public void lastShopping(View view)
