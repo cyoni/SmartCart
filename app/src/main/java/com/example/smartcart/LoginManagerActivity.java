@@ -25,7 +25,7 @@ public class LoginManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        firstFragment();
+        userLogin();
 
 
         // set action bar:
@@ -43,7 +43,7 @@ public class LoginManagerActivity extends AppCompatActivity {
         });
     }
 
-    public void firstFragment(){
+    public void userLogin(){
         FragmentManager fm = getSupportFragmentManager();
         login fragTop = new login();
         FragmentTransaction ft = fm.beginTransaction();
@@ -73,7 +73,7 @@ public class LoginManagerActivity extends AppCompatActivity {
     public void changeLayout(View view) {
 
         if (what_fragment==1) {
-            firstFragment();
+            userLogin();
         }
         else {
             secondFragment();
