@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#32a852"
+    android:background="#F7F7F7"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:textColor="@color/white"
+        android:textColor="@color/Black"
         android:textStyle="bold"
         tools:text="---" />
 
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_name"
-        android:textColor="@color/white"
+        android:textColor="@color/Black"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/q"
         android:text="---" />
@@ -35,7 +35,7 @@
         android:id="@+id/q"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/Black"
         android:layout_below="@id/item_name"
         android:layout_marginTop="-20dp"
 
