@@ -3,11 +3,14 @@ package com.example.smartcart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,10 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class chooseItemsActivity extends AppCompatActivity { // Generic class
+public class chooseItemsActivity extends AppCompatActivity implements recycleview_adapter_shopping.ItemClickListener { // Generic class
+    recycleview_adapter_shopping adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +45,19 @@ public class chooseItemsActivity extends AppCompatActivity { // Generic class
         });
 
 
-        String cat = getIntent().getStringExtra("index"); // category name
+        String cat = getIntent().getStringExtra("index"); // get category name
 
         // get items:
-
-
-
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("items").child(cat).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                EditText list = findViewById(R.id.list);
+              //  EditText list = findViewById(R.id.list);
                 String items = "";
                 if (dataSnapshot.exists()){
+                    ArrayList<item> list = new ArrayList<>();
 
                     Iterator<DataSnapshot> a = dataSnapshot.getChildren().iterator();
                     DataSnapshot tmp;
@@ -63,14 +66,18 @@ public class chooseItemsActivity extends AppCompatActivity { // Generic class
                         tmp = a.next();
                         final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
 
-                        String q = dataMap.get("quantity")+"";
+                        String q = dataMap.get("quantity")+""; // available quantity
                         String price = dataMap.get("price")+"";
-                        String x = tmp.getKey() + "";
-                        items += "name: " + tmp.getKey() +", price: "+ price + ", quantity: "  + q +"\n";
+                        String name = tmp.getKey() + "";
+                        item tmpItem = new item(name, Integer.valueOf(price), Integer.valueOf(q));
+                        list.add(tmpItem);
 
                     }
-                    list.setText(items);
+
+                        setRecycleView(list);
                 }
+                else
+                    controller.toast(getApplicationContext(), "error 1124");
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -79,9 +86,22 @@ public class chooseItemsActivity extends AppCompatActivity { // Generic class
 
         });
 
-
     }
 
+    private void setRecycleView(ArrayList<item> list )
+    {
+        // set up the RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new recycleview_adapter_shopping(this, list);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
 }
 
 
