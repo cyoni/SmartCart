@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +22,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
-public class chooseItemsActivity extends AppCompatActivity implements recycleview_adapter_shopping.ItemClickListener { // Generic class
+public class chooseItemsActivity extends AppCompatActivity implements recycleview_adapter_shopping.ItemClickListener  { // Generic class
     recycleview_adapter_shopping adapter;
     Button ok_button;
     RecyclerView items_list;
@@ -58,7 +63,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
         });
 
 
-        String cat = getIntent().getStringExtra("index"); // get category name
+       final String cat = getIntent().getStringExtra("index"); // get category name
 
         // get items:
 
@@ -67,8 +72,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              //  EditText list = findViewById(R.id.list);
-                String items = "";
+
                 if (dataSnapshot.exists()){
                     ArrayList<item> list = new ArrayList<>();
 
@@ -82,7 +86,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                         String q = dataMap.get("quantity")+""; // available quantity
                         String price = dataMap.get("price")+"";
                         String name = tmp.getKey() + "";
-                        item tmpItem = new item(name, Integer.valueOf(price), Integer.valueOf(q));
+                        item tmpItem = new item(name, cat, Integer.valueOf(price), Integer.valueOf(q));
                         list.add(tmpItem);
 
                     }
@@ -122,11 +126,20 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
     }
 
     public void collectItems(View view) {
-        Intent intent = new Intent();
-        intent.putExtra("newList", adapter.getItems());
+
+        Intent intent = new Intent(this, shoppingActivity.class);
+      //  intent.putExtra("student", adapter.getItems());
+
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("items", adapter.getItems());
+        intent.putExtras(bundle);
+
         setResult(RESULT_OK, intent);
         finish();
       }
+
+
 }
 
 

@@ -9,17 +9,18 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class recycleview_adapter_shopping extends RecyclerView.Adapter<recycleview_adapter_shopping.ViewHolder> {
 
-    private List<item> mData;
+    private ArrayList<item> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    recycleview_adapter_shopping(Context context, List<item> data) {
+    recycleview_adapter_shopping(Context context, ArrayList<item> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -45,18 +46,23 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
     // total number of rows
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return mData.size();
     }
 
-    public String getItems() {
-        String s = "";
+    public ArrayList<item> getItems() {
+
+        ArrayList<item> l = new ArrayList<>();
+
         for (int i=0; i< getItemCount(); i++){
             item tmp = getItem(i);
             if (tmp.getMyQuantity() == 0) continue;
-            s += tmp.getName() + "," + tmp.getMyQuantity() + ";";
+         //   s += tmp.getName() + "," + tmp.getMyQuantity() + ";";
+
+            l.add(tmp);
         }
-        return s;
+        return l;
     }
 
 

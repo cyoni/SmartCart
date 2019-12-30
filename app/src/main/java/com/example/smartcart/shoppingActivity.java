@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,10 +22,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class shoppingActivity extends AppCompatActivity implements recycleview_adapter_categories.ItemClickListener { // Generic class
     recycleview_adapter_categories adapter;
@@ -32,7 +35,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
     RecyclerView items_list;
     ProgressBar load;
     // here all the items will be saved and will be sent to my cart activity
-    HashMap<String, Integer> myCart;
+    HashMap<String, item> myCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +64,6 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
             }
         });
 
-
-      //  String cat = getIntent().getStringExtra("index"); // get category name
 
         // get items:
 
@@ -97,6 +98,8 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
 
         });
+
+        updateNum(0); // change button's value
     }
 
 
@@ -104,27 +107,30 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                String newList  = data.getStringExtra("newList");
-                String items[] = newList.split(";");
-
-                if (items.length > 0) {
-                    // update my cart:
-
-                    // first check if the item exists
-                    for (int i=0; i<items.length; i++){
-                         String item[] = items[i].split(",");
-                         String name = item[0]+"";
-                         int q = Integer.parseInt(item[1]);
-                         myCart.put(name, q);
-
-                    }
-                    if (myCart.size() > 0)
-                        cart_button.setText("Cart (" + myCart.size() +")");
+                Bundle bundle = data.getExtras();
+                if (bundle != null) {
+                    ArrayList<item> list = data.getExtras().getParcelableArrayList("items");
+                String s="";
+                  for (int i=0; i<list.size(); i++){
+                      item tmp = list.get(i);
+                      myCart.put(list.get(i).getName(), list.get(i));
+                      s+= tmp.getName() + ", " + tmp.getCategory() + ";";
+                      updateNum(myCart.size());
 
                 }
 
+                controller.toast(this, s);
+
+                }
+                else{
+                    controller.toast(this, "error 32452");
+                }
             }
         }
+    }
+
+    private void updateNum(int size) {
+        cart_button.setText("Cart (" + size + ")");
     }
 
     private void setRecycleView(ArrayList<String> items_list)
@@ -152,109 +158,3 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
 
 
-
-
-
-/*
-package com.example.smartcart;
-
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Bundle;
-import android.view.ContextThemeWrapper;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-
-public class shoppingActivity extends AppCompatActivity {
-    private int index = 0;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping);
-
-
-        // set action bar:
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
-        View view = getSupportActionBar().getCustomView();
-        ImageView img = view.findViewById(R.id.image_action);
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // download data and set buttons dynamically:
-        downloadData();
-
-    }
-
-    private void downloadData() { // get the list of the categories and allocate a new button
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        String buttonName = ds.getKey();
-                        setButton(buttonName);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
-
-    private void setButton(final String buttonName) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            Button btn = new Button(this);
-            btn.setId(index++);
-            final int id_ = btn.getId();
-            btn.setText(buttonName);
-            btn.setTextSize(20);
-            btn.setPadding(5,5,5,5);
-            GradientDrawable button_style = new GradientDrawable();
-            button_style.setShape(GradientDrawable.RECTANGLE);
-            button_style.setStroke(1, Color.WHITE);
-            button_style.setColor(Color.rgb(33,171,79));
-            btn.setBackground(button_style);
-            LinearLayout l = findViewById(R.id.lin);
-            l.addView(btn, params);
-            btn = findViewById(id_);
-            btn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    Intent a = new Intent(getApplicationContext() , chooseItemsActivity.class);
-                    a.putExtra("index", buttonName);
-                    startActivity(a);
-                }
-            });
-
-    }
-
-}
-*/
