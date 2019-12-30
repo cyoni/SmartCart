@@ -3,7 +3,8 @@ package com.example.smartcart;
 // this class represents an item
 public class item {
     String name;
-    int price, q;
+    int price, q// available quantity
+            , myQuantity=0;
 
     public item(String name, int price, int q){
         this.name = name;
@@ -11,8 +12,8 @@ public class item {
         this.price = price;
     }
 
-    public int getq(){
-        return q;
+    public int getMyQuantity(){
+        return myQuantity;
     }
 
     public int getPrice(){
@@ -24,11 +25,13 @@ public class item {
     }
 
     public item increase(){
-        q++;
+        myQuantity++;
         return  this;
     }
+
     public item decrease(){
-        q--;
+        if (myQuantity > 0)
+            myQuantity--;
         return this;
     }
 }

@@ -49,6 +49,16 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         return mData.size();
     }
 
+    public String getItems() {
+        String s = "";
+        for (int i=0; i< getItemCount(); i++){
+            item tmp = getItem(i);
+            if (tmp.getMyQuantity() == 0) continue;
+            s += tmp.getName() + "," + tmp.getMyQuantity() + ";";
+        }
+        return s;
+    }
+
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

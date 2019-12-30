@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,11 +27,21 @@ import java.util.Iterator;
 
 public class chooseItemsActivity extends AppCompatActivity implements recycleview_adapter_shopping.ItemClickListener { // Generic class
     recycleview_adapter_shopping adapter;
+    Button ok_button;
+    RecyclerView items_list;
+    ProgressBar load;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_items);
+
+         ok_button = findViewById(R.id.ok_button);
+        items_list = findViewById(R.id.list);
+        load = findViewById(R.id.progressBar);
+
+        ok_button.setVisibility(View.GONE);
+        items_list.setVisibility(View.GONE);
 
 
         // set action bar:
@@ -75,6 +88,11 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                     }
 
                         setRecycleView(list);
+
+                    ok_button.setVisibility(View.VISIBLE);
+                    items_list.setVisibility(View.VISIBLE);
+                    load.setVisibility(View.GONE);
+
                 }
                 else
                     controller.toast(getApplicationContext(), "error 1124");
@@ -100,8 +118,15 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
+
+    public void collectItems(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("newList", adapter.getItems());
+        setResult(RESULT_OK, intent);
+        finish();
+      }
 }
 
 
