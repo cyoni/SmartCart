@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:background="@drawable/main_background"
+
     tools:context=".CartActivity">
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        android:background="#F7F7F7"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
+        android:background="#FFFFFF" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="9dp"
+        android:layout_toRightOf="@id/back"
+        android:paddingRight="50dp"
+        android:paddingLeft="30dp"
+        android:text="Buy Now" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="9dp"
+        android:text="Apply And Back" />
+
+
+</RelativeLayout>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -35,12 +36,13 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position).getName();
+        String name = mData.get(position).getName();
         int price = mData.get(position).getPrice();
-        //int q = mData.get(position).getq();
+        int my_q = mData.get(position).getMyQuantity();
 
-        holder.myTextView.setText(animal);
+        holder.myTextView.setText(name);
         holder.price.setText("₪" + price);
+        holder.q.setText(my_q+"");
 
     }
 
@@ -51,15 +53,13 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         return mData.size();
     }
 
-    public ArrayList<item> getItems() {
+    public ArrayList<item> getItems(HashMap<String, item> my_list) {
 
         ArrayList<item> l = new ArrayList<>();
-
         for (int i=0; i< getItemCount(); i++){
             item tmp = getItem(i);
-            if (tmp.getMyQuantity() == 0) continue;
-         //   s += tmp.getName() + "," + tmp.getMyQuantity() + ";";
 
+            if (tmp.getMyQuantity() == 0 && my_list.get(tmp.getName()) == null) continue;
             l.add(tmp);
         }
         return l;
@@ -80,6 +80,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             q = itemView.findViewById(R.id.q);
 
             price = itemView.findViewById(R.id.price);
+
 
             b1.setOnClickListener(this);
             b2.setOnClickListener(this);

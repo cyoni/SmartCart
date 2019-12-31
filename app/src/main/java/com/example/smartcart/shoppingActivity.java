@@ -3,6 +3,7 @@ package com.example.smartcart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class shoppingActivity extends AppCompatActivity implements recycleview_adapter_categories.ItemClickListener { // Generic class
     recycleview_adapter_categories adapter;
@@ -103,24 +105,18 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) { // Receive intent
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { // Receive intent from chooseItemsActivity (update my cart)
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 Bundle bundle = data.getExtras();
                 if (bundle != null) {
                     ArrayList<item> list = data.getExtras().getParcelableArrayList("items");
-                String s="";
                   for (int i=0; i<list.size(); i++){
-                      item tmp = list.get(i);
-                      myCart.put(list.get(i).getName(), list.get(i));
-                      s+= tmp.getName() + ", " + tmp.getCategory() + ";";
+                      if (list.get(i).getMyQuantity() == 0) { myCart.remove(list.get(i).getName());}
+                            else myCart.put(list.get(i).getName(), list.get(i));
                       updateNum(myCart.size());
-
                 }
-
-                controller.toast(this, s);
-
                 }
                 else{
                     controller.toast(this, "error 32452");
@@ -142,17 +138,39 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
+
+
     }
 
     @Override
     public void onItemClick(View view, int position) {
+
+        HashMap<String, item> items_cat = new HashMap<>(); // list that contains objects of items that belong only to the chosen category
+        String cat = adapter.getItem(position);
+        for (Map.Entry<String, item> entry : myCart.entrySet()){
+            String tmp_cat = entry.getValue().getCategory();
+            if (tmp_cat.equals(cat)){
+                items_cat.put(entry.getKey(), entry.getValue());
+            }
+
+        }
+
         Intent a = new Intent(getApplicationContext() , chooseItemsActivity.class);
-        a.putExtra("index", adapter.getItem(position)+"");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("myCart_for_cat", items_cat);
+        a.putExtras(bundle);
+        a.putExtra("index", cat);
         startActivityForResult(a, 1);
     }
 
-    public void collectItems(View view) {
-            }
+    public void cart(View view) {
+        Intent a = new Intent(getApplicationContext() , CartActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("my_items", myCart);
+        a.putExtras(bundle);
+        startActivity(a);
+    }
 }
 
 

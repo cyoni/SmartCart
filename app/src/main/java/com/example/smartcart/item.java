@@ -13,7 +13,6 @@ public class item implements Parcelable {
     String name, category;
     int price, q// available quantity
             , myQuantity=0;
-   // ArrayList<item> _items;
 
 
     public item(String name, int price, int q){

@@ -29,12 +29,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class chooseItemsActivity extends AppCompatActivity implements recycleview_adapter_shopping.ItemClickListener  { // Generic class
     recycleview_adapter_shopping adapter;
     Button ok_button;
     RecyclerView items_list;
     ProgressBar load;
+
+    HashMap<String, item> cat_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
         ok_button.setVisibility(View.GONE);
         items_list.setVisibility(View.GONE);
-
+        cat_list = new HashMap<>();
 
         // set action bar:
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -61,6 +64,13 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                 finish();
             }
         });
+
+
+        Intent intent = getIntent(); // get intent from shoppingActivity - to set the items that the user choose to the shopping list
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            cat_list = (HashMap<String, item>) bundle.getSerializable("myCart_for_cat");
+        }
 
 
        final String cat = getIntent().getStringExtra("index"); // get category name
@@ -78,17 +88,22 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
                     Iterator<DataSnapshot> a = dataSnapshot.getChildren().iterator();
                     DataSnapshot tmp;
-
                     while (a.hasNext()) {
                         tmp = a.next();
                         final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
-
                         String q = dataMap.get("quantity")+""; // available quantity
                         String price = dataMap.get("price")+"";
-                        String name = tmp.getKey() + "";
-                        item tmpItem = new item(name, cat, Integer.valueOf(price), Integer.valueOf(q));
-                        list.add(tmpItem);
+                        String name = tmp.getKey()+"";
 
+                        item tmpItem;
+                            if (cat_list.get(name) != null){ // if you already exists in the list
+                                 tmpItem = cat_list.get(name);
+                                 list.add(tmpItem);
+                            }
+                            else{ // otherwise
+                               tmpItem = new item(name, cat, Integer.valueOf(price), Integer.valueOf(q));
+                               list.add(tmpItem);
+                        }
                     }
 
                         setRecycleView(list);
@@ -128,11 +143,8 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
     public void collectItems(View view) {
 
         Intent intent = new Intent(this, shoppingActivity.class);
-      //  intent.putExtra("student", adapter.getItems());
-
-
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("items", adapter.getItems());
+        bundle.putParcelableArrayList("items", adapter.getItems(cat_list));
         intent.putExtras(bundle);
 
         setResult(RESULT_OK, intent);
@@ -141,5 +153,3 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
 
 }
-
-
