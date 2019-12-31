@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -21,8 +22,16 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     private ArrayList<item> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    MyAdapterListener listener;
 
     // data is passed into the constructor
+    recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity, MyAdapterListener listener) {
+        this.what_activity = what_activity;
+        this.mInflater = LayoutInflater.from(context);
+        this.mData = data;
+        this.listener = listener;
+    }
+
     recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity) {
         this.what_activity = what_activity;
         this.mInflater = LayoutInflater.from(context);
@@ -59,8 +68,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
 
 
-    public ArrayList<item> getItems(HashMap<String, item> my_list) {
-
+    public ArrayList<item> getItems(HashMap<String, item> my_list) { // it is working but I need to get rid of the parameter!
         ArrayList<item> l = new ArrayList<>();
         for (int i=0; i< getItemCount(); i++){
             item tmp = getItem(i);
@@ -101,6 +109,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             itemView.setOnClickListener(this);
         }
 
+
         @Override
         public void onClick(View view) {
             // if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
@@ -108,11 +117,9 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             if (view.getId() == b1.getId()) {
 
                 if (b1.getText().equals("x")) {
-
                 mData.remove(getAdapterPosition());
                 notifyItemRemoved(getAdapterPosition());
-
-
+                listener.onContainerClick(getItems(null)); // invoke onContainerClick from cartActivity to update subtotal
                 }
                 else {
                     int n = Integer.parseInt(q.getText().toString());
@@ -151,4 +158,9 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
+
+    public interface MyAdapterListener {
+        void onContainerClick(ArrayList<item> items);
+    }
+
 }

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity  implements recycleview_adapter_shopping.ItemClickListener  { //
+public class CartActivity extends AppCompatActivity  implements recycleview_adapter_shopping.ItemClickListener, recycleview_adapter_shopping.MyAdapterListener { //
     recycleview_adapter_shopping adapter;
     HashMap<String, item> myCart;
 
@@ -52,10 +52,7 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
         if (myCart.size() == 0)
             controller.toast(this, "Your cart is empty");
 
-
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -79,18 +76,19 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
             // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, list, 1);
+        adapter = new recycleview_adapter_shopping(this, list, 1, this);
         adapter.setClickListener(this);
 
         recyclerView.setAdapter(adapter);
+        getSubTotal(list);
 
     }
-    private void getSubTotal(){
+    private void getSubTotal(ArrayList<item> items){
+
         TextView t = findViewById(R.id.subtotal);
         int total = 0;
-        for (Map.Entry<String, item> entry : myCart.entrySet()) {
-
-            total += entry.getValue().price*entry.getValue().getMyQuantity();
+        for (int i=0; i< items.size(); i++){
+            total += items.get(i).price*items.get(i).getMyQuantity();
         }
         t.setText("Subtotal: ₪" + total);
 
@@ -104,5 +102,11 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
     public void buy(View view) {
 
         controller.toast(this, "buy now..");
+    }
+
+
+    @Override
+    public void onContainerClick(ArrayList<item> items) {
+        getSubTotal(items);
     }
 }
