@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 // this class represents an item
 public class item implements Parcelable {
-  //  private static final long serialVersionUID = 0L;
-
     String name, category;
     int price, q// available quantity
             , myQuantity=0;
@@ -90,5 +88,14 @@ public class item implements Parcelable {
         parcel.writeInt(price);
         parcel.writeInt(q);
         parcel.writeInt(myQuantity);
+    }
+
+    public String setPrice() {
+        if (myQuantity <= 1) return "₪" + price;
+        return "₪" + price + "x" + myQuantity + "=₪" + price*myQuantity;
+    }
+
+    public void resetMyQuantity() {
+        myQuantity = 0;
     }
 }

@@ -130,7 +130,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, list);
+        adapter = new recycleview_adapter_shopping(this, list, 0);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }

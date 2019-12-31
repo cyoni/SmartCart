@@ -110,19 +110,33 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                if (bundle != null) {
-                    ArrayList<item> list = data.getExtras().getParcelableArrayList("items");
-                  for (int i=0; i<list.size(); i++){
-                      if (list.get(i).getMyQuantity() == 0) { myCart.remove(list.get(i).getName());}
-                            else myCart.put(list.get(i).getName(), list.get(i));
-                      updateNum(myCart.size());
-                }
-                }
-                else{
-                    controller.toast(this, "error 32452");
-                }
+                getCart(data, bundle, 0);
             }
         }
+        if (requestCode == 2) {
+            if(resultCode == RESULT_OK) {
+                Bundle bundle = data.getExtras();
+                getCart(data, bundle ,1);
+            }
+        }
+    }
+
+    private void getCart(Intent data, Bundle bundle, int what) {
+        if (bundle != null) {
+            ArrayList<item> list = data.getExtras().getParcelableArrayList("items");
+
+            if (what == 1)
+                myCart.clear();
+
+            for (int i=0; i<list.size(); i++){
+                if (list.get(i).getMyQuantity() == 0) { myCart.remove(list.get(i).getName());}
+                else myCart.put(list.get(i).getName(), list.get(i));
+            }
+        }
+        else{
+            controller.toast(this, "error 32452");
+        }
+        updateNum(myCart.size());
     }
 
     private void updateNum(int size) {
@@ -169,7 +183,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         Bundle bundle = new Bundle();
         bundle.putSerializable("my_items", myCart);
         a.putExtras(bundle);
-        startActivity(a);
+        startActivityForResult(a, 2);
     }
 }
 

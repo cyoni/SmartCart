@@ -14,29 +14,31 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="100dp"
         android:background="#FFFFFF" />
 
     <Button
         android:id="@+id/buy"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="9dp"
-        android:layout_toRightOf="@id/back"
-        android:paddingRight="50dp"
-        android:paddingLeft="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:onClick="buy"
         android:text="Buy Now" />
 
-    <Button
-        android:id="@+id/back"
+    <TextView
+        android:id="@+id/subtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="9dp"
-        android:text="Apply And Back" />
+        android:layout_marginBottom="76dp"
+        android:text="Subtotal: 0"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

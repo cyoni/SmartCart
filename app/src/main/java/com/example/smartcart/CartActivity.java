@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +37,7 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -46,12 +48,25 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
             myCart = (HashMap<String, item>) bundle.getSerializable("my_items");
             setRecycleView();
         }
-        else
+
+        if (myCart.size() == 0)
             controller.toast(this, "Your cart is empty");
 
 
     }
 
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, shoppingActivity.class);
+        Bundle bundle = new Bundle();
+
+        bundle.putParcelableArrayList("items", adapter.getItems(null));
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 
 
     private void setRecycleView()
@@ -64,14 +79,30 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
             // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, list);
+        adapter = new recycleview_adapter_shopping(this, list, 1);
         adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-    }
 
+        recyclerView.setAdapter(adapter);
+
+    }
+    private void getSubTotal(){
+        TextView t = findViewById(R.id.subtotal);
+        int total = 0;
+        for (Map.Entry<String, item> entry : myCart.entrySet()) {
+
+            total += entry.getValue().price*entry.getValue().getMyQuantity();
+        }
+        t.setText("Subtotal: ₪" + total);
+
+    }
 
     @Override
     public void onItemClick(View view, int position) {
 
+    }
+
+    public void buy(View view) {
+
+        controller.toast(this, "buy now..");
     }
 }
