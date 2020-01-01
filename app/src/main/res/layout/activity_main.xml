@@ -42,13 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="lastShopping"
-        android:text="Show Purchase History" />
-
-    <LinearLayout
-        android:id="@+id/lin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"/>
+        android:text="Purchase History" />
 
 
 </LinearLayout>

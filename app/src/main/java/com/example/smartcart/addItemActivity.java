@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class addItemActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Vector<String> cat_List;
     private Vector<String> items_List;
+    private CheckBox del;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class addItemActivity extends AppCompatActivity {
 
         cat_List = new Vector<>();
         items_List = new Vector<>();
+        del = findViewById(R.id.delete);
 
         // set action bar:
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -81,6 +84,10 @@ public class addItemActivity extends AppCompatActivity {
 
                         p.setText(price);
                         q.setText(quantity);
+                        del.setEnabled(true);
+                    }
+                    else{
+                        del.setEnabled(false);
                     }
                 }
                 @Override
@@ -167,8 +174,10 @@ public class addItemActivity extends AppCompatActivity {
 
 
     private void setList(int v, Vector<String> list){
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1 , list);
         AutoCompleteTextView textView = findViewById(v);
+
         textView.setAdapter(adapter);
         textView.showDropDown();
     }
@@ -177,11 +186,13 @@ public class addItemActivity extends AppCompatActivity {
 
 
     private void getCatList() {
+
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
+                    cat_List.clear();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String buttonName = ds.getKey();
                         cat_List.add(buttonName);
@@ -211,37 +222,51 @@ public class addItemActivity extends AppCompatActivity {
         EditText t_quantity = findViewById(R.id.quantity);
         EditText t_cat = findViewById(R.id.cat);
 
-
         String cat = t_cat.getText().toString().trim();
         String name = t_name.getText().toString().trim();
         String price = t_price.getText().toString().trim();
         String quantity = t_quantity.getText().toString().trim();
 
-        if (cat.length() == 0 || name.length() == 0 || price.length() == 0 || quantity.length() == 0){
+
+        if (cat.length() == 0 || name.length() == 0 || price.length() == 0 || quantity.length() == 0) {
             controller.toast(this, "Please fill all values!");
             return;
         }
 
-        Button submit = findViewById(R.id.submit);
-        LoadingButton loadingButton = (LoadingButton)submit; loadingButton.showLoading();
+        if (del.isChecked()){
+            mDatabase.child("items").child(cat).child(name).removeValue();
+            controller.toast(this, "success!");
+        }
+        else {
 
-        Map<String, Object> newItem = new HashMap<>();
-        newItem.put("price", Integer.valueOf(price));
-        newItem.put("quantity",Integer.valueOf(quantity));
 
-        mDatabase.child("items").child(cat).child(name).setValue(newItem);
-        mDatabase.child("categories").child(cat).setValue(cat , "null");
+            Button submit = findViewById(R.id.submit);
+            LoadingButton loadingButton = (LoadingButton) submit;
+            loadingButton.showLoading();
 
-        controller.toast(this, name + " has been added!");
+            Map<String, Object> newItem = new HashMap<>();
+            newItem.put("price", Integer.valueOf(price));
+            newItem.put("quantity", Integer.valueOf(quantity));
 
-         loadingButton = (LoadingButton)submit; loadingButton.hideLoading();
+            mDatabase.child("items").child(cat).child(name).setValue(newItem);
+            mDatabase.child("categories").child(cat).setValue(cat);
 
+
+            controller.toast(this, name + " has been updated!");
+            getCatList();
+
+            loadingButton = (LoadingButton) submit;
+            loadingButton.hideLoading();
+
+
+        }
 
         t_name.setText("");
         t_price.setText("");
         t_quantity.setText("");
         t_cat.setText("");
-
+        del.setChecked(false);
+        del.setEnabled(false);
     }
 
 

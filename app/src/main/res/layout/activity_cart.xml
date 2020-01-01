@@ -22,11 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="9dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="9dp"
         android:onClick="buy"
-        android:text="Buy Now" />
+        android:text="Buy" />
 
     <TextView
         android:id="@+id/subtotal"

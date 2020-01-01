@@ -69,10 +69,10 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         });
 
 
-        // get items:
+        // get category list:
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("categories").orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

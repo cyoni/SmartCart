@@ -2,7 +2,6 @@ package com.example.smartcart;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,32 +11,23 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
-public class recycleview_adapter_shopping extends RecyclerView.Adapter<recycleview_adapter_shopping.ViewHolder> {
+public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_adapter_order.ViewHolder> {
 
-    private int what_activity;
-    private ArrayList<item> mData;
+
+    private ArrayList<order> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     MyAdapterListener listener;
 
     // data is passed into the constructor
-    recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity, MyAdapterListener listener) {
-        this.what_activity = what_activity;
+    recycleview_adapter_order(Context context, ArrayList<order> data, MyAdapterListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.listener = listener;
     }
 
-    recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity) {
-        this.what_activity = what_activity;
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
-    }
 
     // inflates the row layout from xml when needed
     @Override
@@ -49,14 +39,17 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String name = mData.get(position).getName();
+        int orderNum = mData.get(position).getNumber();
+      /*
 
         int my_q = mData.get(position).getMyQuantity();
 
         holder.myTextView.setText(name);
         holder.price.setText(mData.get(position).setPrice());
         holder.q.setText(my_q+"");
+*/
 
+      holder.myTextView.setText(orderNum+"");
 
     }
 
@@ -71,11 +64,11 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
     public ArrayList<item> getItems() {
         ArrayList<item> l = new ArrayList<>();
-        for (int i=0; i< getItemCount(); i++){
+/*        for (int i=0; i< getItemCount(); i++){
             item tmp = getItem(i);
             if (tmp.getMyQuantity() == 0) continue;
             l.add(tmp);
-        }
+        }*/
         return l;
     }
 
@@ -94,6 +87,16 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             q = itemView.findViewById(R.id.q);
             price = itemView.findViewById(R.id.price);
 
+            b1.setVisibility(View.GONE);
+            b2.setVisibility(View.GONE);
+            q.setVisibility(View.GONE);
+            price.setVisibility(View.GONE);
+
+
+            myTextView.setTextSize(20);
+
+
+    /*
 
             b1.setOnClickListener(this);
             if (what_activity == 0) { // chooseItemsActivity
@@ -105,47 +108,22 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                 b1.setTextColor(Color.RED);
                 b2.setVisibility(View.GONE);
 
-            }
+            }*/
             itemView.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View view) {
-            // if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+          //   if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
 
-            if (view.getId() == b1.getId()) {
 
-                if (b1.getText().equals("x")) {
-                    mData.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    listener.onContainerClick(getItems()); // invoke onContainerClick from cartActivity to update subtotal
-                }
-                else {
-                    int n = Integer.parseInt(q.getText().toString());
-                    n++;
-                    q.setText(n + "");
-                    mData.set(getAdapterPosition(), mData.get(getAdapterPosition()).increase());
-                    price.setText(mData.get(getAdapterPosition()).setPrice());
-                }
-
-            }
-            if (view.getId() == b2.getId()) {
-                //  Toast.makeText(view.getContext(), "val: " + q.getText() + " +ITEM PRESSED = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                int n = Integer.parseInt(q.getText() + "");
-                if (n == 0) return;
-                n--;
-                q.setText(n + "");
-
-                mData.set(getAdapterPosition(), mData.get(getAdapterPosition()).decrease());
-                price.setText(mData.get(getAdapterPosition()).setPrice());
-            }
-
-        }
+           // System.out.println(mData.get(getAdapterPosition()).getItems().size()+ "##" );
+                   }
     }
 
     // convenience method for getting data at click position
-    public item getItem(int id) {
+    public order getItem(int id) {
         return mData.get(id);
     }
 
@@ -160,7 +138,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     }
 
     public interface MyAdapterListener {
-        void onContainerClick(ArrayList<item> items);
+        void onContainerClick(ArrayList<order> items);
     }
 
 }

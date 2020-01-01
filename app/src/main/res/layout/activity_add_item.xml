@@ -40,10 +40,7 @@
             android:layout_height="wrap_content"
             android:completionThreshold="1"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
 
 
     </TableRow>
@@ -111,20 +108,35 @@
 
     </TableRow>
 
+
+
     <TableRow
-        android:id="@+id/t4">
+        android:id="@+id/t6"
+        android:layout_marginTop="20dp"
+        >
 
-        <Switch
-            android:id="@+id/appear"
 
-            android:text="hi there">
-        </Switch>
+        <CheckBox
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Delete Item" />
+
 
     </TableRow>
 
     <TableRow
-        android:gravity="center"
-        android:layout_marginTop="50dp">
+
+        android:id="@+id/t4"
+        android:layout_gravity="top|bottom"
+        />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
 
         <com.kusu.loadingbutton.LoadingButton
             android:id="@+id/cancel"

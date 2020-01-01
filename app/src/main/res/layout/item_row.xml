@@ -15,6 +15,7 @@
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
         android:textSize="30sp"
         android:textColor="#5468F1"
         tools:text="---" />

@@ -15,18 +15,26 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LastShoppingActivity extends AppCompatActivity {
+
+public class LastShoppingActivity extends AppCompatActivity implements recycleview_adapter_order.ItemClickListener, recycleview_adapter_order.MyAdapterListener { // {
     private FirebaseAuth mAuth;
+    private ArrayList<order> list;
+    private recycleview_adapter_order adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_shopping);
 
+        list = new ArrayList<>();
         getHistoryList();
 
     }
@@ -36,28 +44,40 @@ public class LastShoppingActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("orders").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String output = "";
 
                 if (dataSnapshot.exists()) {
-                    final HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
-                    String data = String.valueOf(dataMap.get("lastPurchase"));
-                    if (data.indexOf(";") != -1) {
-                        String items[] = data.split(";");
-                        for (int i=0; i<items.length; i++) {
-                            String item[] = items[i].split(",");
-                            output += "\nname: " + item[0] + ". quantity: " + item[1] + ". price: " + item[2];
+
+                    for (DataSnapshot tmp : dataSnapshot.getChildren()) {
+
+                        final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
+
+                        String items = dataMap.get("items").toString();
+                        String date = dataMap.get("date").toString();
+                        String address = dataMap.get("address").toString();
+
+                        ArrayList<item> tmp_items = new ArrayList<>();
+
+                        if (items.indexOf(";") != -1) {
+                            String my_items[] = items.split(";");
+                            for (int i = 0; i < my_items.length; i++) {
+                                String item[] = my_items[i].split(",");
+
+                                item tmpItem = new item(item[1], item[0], Integer.parseInt(item[3]), Integer.parseInt(item[2]));
+                                tmp_items.add(tmpItem);
+
+
+                            }
+                            list.add(new order(Integer.parseInt(tmp.getKey()), tmp_items));
                         }
-                        TextView t = findViewById(R.id.list);
-                        t.setText(output);
 
                     }
-                    else if (data.equals("null"))
-                        controller.toast(getApplicationContext(), "Last cart is empty");
-                          else controller.toast(getApplicationContext(), "Input is not ok ");
+
+                    setRecycleView();
 
                 }
                 else{
@@ -73,12 +93,27 @@ public class LastShoppingActivity extends AppCompatActivity {
         });
 
     }
-//adding comment for commit purpose
 
-    public void lastShop2(View view) {
+    @Override
+    public void onItemClick(View view, int position) {
+  //  controller.toast(this, adapter.getItem(position).getNumber()+".");
 
+        //setRecycleView(adapter.getItem(position).getItems().size() +"");
+    }
+
+    @Override
+    public void onContainerClick(ArrayList<order> items) {
 
     }
 
+    private void setRecycleView() {
+        // set up the RecyclerView
+
+        RecyclerView recyclerView = findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new recycleview_adapter_order(this, list, this);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
+    }
 }
 

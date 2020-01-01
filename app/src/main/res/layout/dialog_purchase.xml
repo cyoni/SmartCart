@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.smartcart.CartActivity"
+    android:orientation="vertical"
+    android:stretchColumns="1"
+    android:background="@drawable/frame"
+    >
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="Confirm your purchase"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#18235F"
+        />
+
+    <TableRow
+        android:id="@+id/t5"
+        android:layout_marginTop="20dp"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:padding="10dp"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Name"
+            android:textColor="#18235F"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+
+    <TableRow
+        android:id="@+id/t3"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Total to pay: "
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="$0.00"
+            android:textColor="#18235F"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/t1"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Ship to: "
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:ems="10"
+            android:textColor="#18235F"
+            android:textSize="20sp"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+    </TableRow>
+
+
+    <TableRow
+        android:id="@+id/t2"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        >
+
+
+        <com.kusu.loadingbutton.LoadingButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_span="1"
+            android:onClick="back"
+            android:text="Back"
+            android:textColor="@color/white" />
+
+        <com.kusu.loadingbutton.LoadingButton
+            android:id="@+id/buy"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_span="1"
+            android:onClick="placeTheOrder"
+            android:text="Buy Now"
+            android:textColor="@color/white" />
+
+
+    </TableRow>
+
+</TableLayout>
