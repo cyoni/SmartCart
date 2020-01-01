@@ -15,8 +15,8 @@
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:textColor="@color/Black"
+        android:textSize="30sp"
+        android:textColor="#5468F1"
         tools:text="---" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_name"
-        android:layout_marginTop="-24dp"
+        android:layout_marginTop="-30dp"
         android:layout_marginRight="13dp"
 
         android:layout_toLeftOf="@id/b2"

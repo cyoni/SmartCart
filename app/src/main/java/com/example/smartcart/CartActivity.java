@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.Map;
 public class CartActivity extends AppCompatActivity  implements recycleview_adapter_shopping.ItemClickListener, recycleview_adapter_shopping.MyAdapterListener { //
     recycleview_adapter_shopping adapter;
     HashMap<String, item> myCart;
-
+    userBoard _user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,9 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
         if (myCart.size() == 0)
             controller.toast(this, "Your cart is empty");
 
+
+        Gson gson = new Gson(); // set user Data
+        _user = gson.fromJson(intent.getStringExtra("userMetaData"), userBoard.class);
     }
 
     @Override
@@ -59,12 +64,11 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
         Intent intent = new Intent(this, shoppingActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putParcelableArrayList("items", adapter.getItems(null));
+        bundle.putParcelableArrayList("items", adapter.getItems());
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
     }
-
 
     private void setRecycleView()
     {
@@ -100,8 +104,19 @@ public class CartActivity extends AppCompatActivity  implements recycleview_adap
     }
 
     public void buy(View view) {
+        if (_user == null) {
+            controller.toast(this, "Please log in first");
 
-        controller.toast(this, "buy now..");
+            Intent a = new Intent(this, LoginActivity.class);
+            //a.putExtra("info" , "yes"); todo
+            startActivity(a);
+
+        }
+        else{
+
+            
+        }
+
     }
 
 

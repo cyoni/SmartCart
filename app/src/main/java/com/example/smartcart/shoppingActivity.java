@@ -36,6 +36,8 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
     Button cart_button;
     RecyclerView items_list;
     ProgressBar load;
+    userBoard _user;
+
     // here all the items will be saved and will be sent to my cart activity
     HashMap<String, item> myCart;
 
@@ -62,7 +64,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -101,8 +103,36 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
         });
 
-        updateNum(0); // change button's value
+        restoreCart();
+        updateNum(myCart.size()); // change button's value
+
     }
+
+    private void restoreCart() {
+        Intent intent = getIntent(); // get intent from shoppingActivity - to set the items that the user choose to the shopping list
+        Bundle bundle = intent.getExtras();
+
+        Gson gson = new Gson(); // set user Data
+        _user = gson.fromJson(intent.getStringExtra("userMetaData"), userBoard.class);
+
+        if (bundle != null) {
+            myCart = (HashMap<String, item>) bundle.getSerializable("restore_items");
+        }
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("restore_items", myCart);
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) { // Receive intent from chooseItemsActivity (update my cart)
@@ -125,11 +155,12 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         if (bundle != null) {
             ArrayList<item> list = data.getExtras().getParcelableArrayList("items");
 
+            if (list == null) {controller.toast(this, "Cart is empty"); return;}
             if (what == 1)
-                myCart.clear();
+                myCart.clear(); // if the user goes back from cart, all of his items are moving to this class so clear the list and re-do it
 
             for (int i=0; i<list.size(); i++){
-                if (list.get(i).getMyQuantity() == 0) { myCart.remove(list.get(i).getName());}
+                if (list.get(i).getMyQuantity() == -1) { myCart.remove(list.get(i).getName());}
                 else myCart.put(list.get(i).getName(), list.get(i));
             }
         }
@@ -179,9 +210,17 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
     }
 
     public void cart(View view) {
+
+        Gson gson = new Gson();
+        String metaData = gson.toJson(_user); // convert metaData to JSON
+
         Intent a = new Intent(getApplicationContext() , CartActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("my_items", myCart);
+
+        bundle.putSerializable("restore_items", myCart);
+        a.putExtra("userMetaData", metaData);
+
         a.putExtras(bundle);
         startActivityForResult(a, 2);
     }

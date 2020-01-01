@@ -140,11 +140,12 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
       //  Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
+
     public void collectItems(View view) {
 
         Intent intent = new Intent(this, shoppingActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("items", adapter.getItems(cat_list));
+        bundle.putParcelableArrayList("items", adapter.getItems());
         intent.putExtras(bundle);
 
         setResult(RESULT_OK, intent);

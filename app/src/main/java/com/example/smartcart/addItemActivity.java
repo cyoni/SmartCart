@@ -106,8 +106,8 @@ public class addItemActivity extends AppCompatActivity {
                           items_List.add(ds.getKey());
                         }
 
-                        setList(R.id.name, items_List);
-                        AutoCompleteTextView n = findViewById(R.id.name);
+                        setList(R.id.nameOfItem, items_List);
+                        AutoCompleteTextView n = findViewById(R.id.nameOfItem);
                         n.requestFocus();
                         n.showDropDown();
 
@@ -125,7 +125,7 @@ public class addItemActivity extends AppCompatActivity {
     private void startTextListener() {
 
         final AutoCompleteTextView cat_txt =  findViewById(R.id.cat);// listener for category
-        final AutoCompleteTextView name_txt =  findViewById(R.id.name); // listener for product name
+        final AutoCompleteTextView name_txt =  findViewById(R.id.nameOfItem); // listener for product name
 
         cat_txt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,7 +206,7 @@ public class addItemActivity extends AppCompatActivity {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
-        EditText t_name = findViewById(R.id.name);
+        EditText t_name = findViewById(R.id.nameOfItem);
         EditText t_price = findViewById(R.id.price);
         EditText t_quantity = findViewById(R.id.quantity);
         EditText t_cat = findViewById(R.id.cat);

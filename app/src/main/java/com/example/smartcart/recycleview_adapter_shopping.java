@@ -2,6 +2,7 @@ package com.example.smartcart;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,12 +69,11 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
 
 
-    public ArrayList<item> getItems(HashMap<String, item> my_list) { // it is working but I need to get rid of the parameter!
+    public ArrayList<item> getItems() {
         ArrayList<item> l = new ArrayList<>();
         for (int i=0; i< getItemCount(); i++){
             item tmp = getItem(i);
-
-            if (my_list != null && tmp.getMyQuantity() == 0 && my_list.get(tmp.getName()) == null) continue;
+            if (tmp.getMyQuantity() == 0) continue;
             l.add(tmp);
         }
         return l;
@@ -119,7 +119,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                 if (b1.getText().equals("x")) {
                 mData.remove(getAdapterPosition());
                 notifyItemRemoved(getAdapterPosition());
-                listener.onContainerClick(getItems(null)); // invoke onContainerClick from cartActivity to update subtotal
+                listener.onContainerClick(getItems()); // invoke onContainerClick from cartActivity to update subtotal
                 }
                 else {
                     int n = Integer.parseInt(q.getText().toString());

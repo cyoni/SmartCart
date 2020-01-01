@@ -48,15 +48,7 @@
         android:id="@+id/lin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="addSomething"
-            android:text="Button" />
-    </LinearLayout>
+        android:orientation="vertical"/>
 
 
 </LinearLayout>

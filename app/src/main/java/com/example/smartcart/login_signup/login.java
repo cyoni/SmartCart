@@ -53,7 +53,7 @@ public class login extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
         root = inflater.inflate(R.layout.fragment_login, container, false);
-        login_button = (Button)root.findViewById(R.id.login_button);
+        login_button = root.findViewById(R.id.login_button);
         login_button.setOnClickListener(
                 new View.OnClickListener()
                 {

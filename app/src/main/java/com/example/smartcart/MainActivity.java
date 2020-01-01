@@ -30,11 +30,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     userBoard _user = null;
+    private HashMap<String, item> myCart;
 
 
     public static Context contextOfApplication;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 /*         mAuth  = FirebaseAuth.getInstance();// get user
          mDatabase = FirebaseDatabase.getInstance().getReference();*/
-
+        myCart = new HashMap<>();
         contextOfApplication = getApplicationContext();
 
         // set action bar:
@@ -67,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         Gson gson = new Gson(); // set user Data
         _user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
-    }
 
+
+    }
 
 
     @Override
@@ -89,14 +93,24 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String metaData = gson.toJson(_user); // convert metaData to JSON
 
-
-
         Intent a = new Intent(this, menu.class); // opens the menu
         a.putExtra("userMetaData", metaData);
         startActivity(a);
 
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { // Receive intent from chooseItemsActivity (update my cart)
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Bundle bundle = data.getExtras();
+
+                if (bundle != null) {
+                    myCart = (HashMap<String, item>) bundle.getSerializable("restore_items");
+                }
+            }
+        }
+    }
 
 
     public void lastShopping(View view)
@@ -111,13 +125,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void shoppingActivity(View view) {
-        Intent a = new Intent(this, shoppingActivity.class);
-        startActivity(a);
 
-    }
-
-    public void addSomething(View view) {
-
+        Gson gson = new Gson();
+        String metaData = gson.toJson(_user); // convert metaData to JSON
+        Intent a = new Intent(getApplicationContext() , shoppingActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("restore_items", myCart);
+        a.putExtra("userMetaData", metaData);
+        a.putExtras(bundle);
+        startActivityForResult(a, 1);
 
     }
 
