@@ -39,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        firstFragment();
+        userLogin();
     }
 
-    public void firstFragment(){
+    public void userLogin(){
         FragmentManager fm = getSupportFragmentManager();
         login fragTop = new login();
         FragmentTransaction ft = fm.beginTransaction();
@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     public void changeLayout(View view) {
 
         if (what_fragment==1) {
-            firstFragment();
+            userLogin();
         }
         else {
             secondFragment();

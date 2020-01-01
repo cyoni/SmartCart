@@ -94,7 +94,7 @@ public class signup extends Fragment {
                             getActivity().finish();
                         } else {
                             Log.w(getTag(), "createUserWithEmail:failure", task.getException());
-                            // TODO check if the account already exists
+
                         controller.toast(getContext(), "Sorry. We could not create your account right now");
                        signup_button.setText("Sign up");
                        signup_button.setEnabled(true);

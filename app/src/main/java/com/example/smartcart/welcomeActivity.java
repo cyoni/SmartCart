@@ -31,7 +31,7 @@ public class welcomeActivity extends AppCompatActivity {
 
     }
 
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         getMetaData(); // get user data in case he is connected
     }

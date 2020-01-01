@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:textColor="@color/Black"
+        tools:text="---" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_name"
+        android:textColor="@color/Black"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/q"
+        android:text="---" />
+
+    <TextView
+        android:id="@+id/q"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_name"
+        android:layout_marginTop="-24dp"
+        android:layout_marginRight="13dp"
+
+        android:layout_toLeftOf="@id/b2"
+        android:text="0"
+        android:textColor="@color/Black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circular_button"
+        android:layout_alignParentEnd="true"
+
+        android:text="+" />
+
+
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/b1"
+
+        android:background="@drawable/circular_button"
+        android:text="-" />
+
+</RelativeLayout>
