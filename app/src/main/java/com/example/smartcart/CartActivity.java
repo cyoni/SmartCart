@@ -3,11 +3,13 @@ package com.example.smartcart;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smartcart.dialog.confirmPurchase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -112,6 +115,27 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         finish();
     }
 
+
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT ) {
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+         //   Toast.makeText(getApplicationContext(), "on Move", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            //Remove swiped item from list and notify the RecyclerView
+            int position = viewHolder.getAdapterPosition();
+            list.remove(position);
+            adapter.notifyDataSetChanged();
+            setSubTotal();
+        }
+    };
+
+
+
     private void setView()
     {
         list = new ArrayList<>();
@@ -137,11 +161,15 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, l, 1, this);
+        adapter = new recycleview_adapter_shopping(this, l, this);
         adapter.setClickListener(this);
 
         recyclerView.setAdapter(adapter);
         setSubTotal();
+
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
     private int getSum(){
 
@@ -161,7 +189,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
 
     @Override
     public void onItemClick(View view, int position) {
-
+        setSubTotal();
     }
 
     public void buy(View view) {
@@ -185,9 +213,9 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
 
     @Override
     public void onContainerClick(ArrayList<item> items) {
-        list.clear();
+/*        list.clear();
         list.addAll(items);
-        setSubTotal();
+        setSubTotal();*/
     }
 
     public void placeTheOrder(View view) {

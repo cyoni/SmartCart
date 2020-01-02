@@ -49,6 +49,7 @@ public class menu extends AppCompatActivity {
 
 
         Button addItems_button = findViewById(R.id.button12);
+        Button newOrders = findViewById(R.id.button4);
         // Check if user is signed in (non-null) and update UI accordingly.
 
         if (user != null){
@@ -60,6 +61,8 @@ public class menu extends AppCompatActivity {
             if (user.isManager()){ // if you're manager then..
                 // add items for manager button:
                 addItems_button.setVisibility(View.VISIBLE);
+                newOrders.setVisibility(View.VISIBLE);
+
 
             }
 
@@ -68,6 +71,7 @@ public class menu extends AppCompatActivity {
 
         if (user == null || user.isManager() == false){
             addItems_button.setVisibility(View.GONE);
+            newOrders.setVisibility(View.GONE);
         }
 
 

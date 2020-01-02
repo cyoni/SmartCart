@@ -19,22 +19,19 @@ import java.util.Map;
 
 public class recycleview_adapter_shopping extends RecyclerView.Adapter<recycleview_adapter_shopping.ViewHolder> {
 
-    private int what_activity;
     private ArrayList<item> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     MyAdapterListener listener;
 
     // data is passed into the constructor
-    public recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity, MyAdapterListener listener) {
-        this.what_activity = what_activity;
+    public recycleview_adapter_shopping(Context context, ArrayList<item> data, MyAdapterListener listener) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.listener = listener;
     }
 
-    public recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity) {
-        this.what_activity = what_activity;
+    public recycleview_adapter_shopping(Context context, ArrayList<item> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -68,17 +65,6 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     }
 
 
-/*
-    public ArrayList<item> getItems() {
-        ArrayList<item> l = new ArrayList<>();
-        for (int i=0; i< getItemCount(); i++){
-            item tmp = getItem(i);
-            if (tmp.getMyQuantity() == 0) continue;
-            l.add(tmp);
-        }
-        return l;
-    }
-    */
     public ArrayList<item> getItems() {
         ArrayList<item> l = new ArrayList<>();
         for (int i=0; i< getItemCount(); i++){
@@ -106,16 +92,8 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
 
             b1.setOnClickListener(this);
-            if (what_activity == 0) { // chooseItemsActivity
-                b2.setOnClickListener(this);
+            b2.setOnClickListener(this);
 
-            }
-            else{ // cartActivity
-                b1.setText("x");
-                b1.setTextColor(Color.RED);
-                b2.setVisibility(View.GONE);
-
-            }
             itemView.setOnClickListener(this);
         }
 
@@ -126,13 +104,6 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
             if (view.getId() == b1.getId()) {
 
-                if (b1.getText().equals("x")) {
-                    mData.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
-                    listener.onContainerClick(getItems()); // invoke onContainerClick from cartActivity to update subtotal
-                }
-                else {
-
                     int n = Integer.parseInt(q.getText().toString());
                     n++;
                     q.setText(n + "");
@@ -142,20 +113,14 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                     /*if (mClickListener != null)*/
                     mClickListener.onItemClick(view, getAdapterPosition());
 
-                }
-
             }
             if (view.getId() == b2.getId()) {
-                //  Toast.makeText(view.getContext(), "val: " + q.getText() + " +ITEM PRESSED = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                int n = Integer.parseInt(q.getText() + "");
+                int n = Integer.parseInt(q.getText().toString());
                 if (n == 0) return;
                 n--;
                 q.setText(n + "");
-
                 mData.set( getAdapterPosition(), mData.get(getAdapterPosition()).decrease());
                 price.setText(mData.get(getAdapterPosition()).setPrice());
-
-               /* if (mClickListener != null) */
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
 

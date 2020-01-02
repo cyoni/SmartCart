@@ -70,9 +70,9 @@ public class item implements Parcelable {
     }
 
     public item decrease(){
-        if (myQuantity > 0)
-            myQuantity--;
-        if (myQuantity == 0) myQuantity=-1; // remove the item from myCart
+        if (myQuantity == -1) myQuantity = 0;
+        else if (myQuantity > 0) myQuantity--;
+        else if (myQuantity == 0) myQuantity=-1; // remove the item from myCart
         return this;
     }
 
