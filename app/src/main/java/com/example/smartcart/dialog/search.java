@@ -147,7 +147,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
 
                                 // look for this item, if you have it already in myCart
 
-                                if (myCart.get(tmpItem.getName()) != null) {controller.toast(getContext(), tmpItem.getName() + "," + tmpItem.getMyQuantity()); search_list.add(myCart.get(tmpItem.getName()));}
+                                if (myCart.get(tmpItem.getName()) != null) { search_list.add(myCart.get(tmpItem.getName()));}
                                 else
                                     search_list.add(tmpItem);
                             }
