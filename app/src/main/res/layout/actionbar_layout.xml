@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
+    android:padding="5dp"
     >
 
-    <TableRow
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="fill_parent"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:hint="Search..."
+        android:textColor="@color/white"/>
+
+    <ImageButton
+        android:id="@+id/image_action"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:ems="17"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:text="Search..."
-
-            />
-        <ImageButton
-            android:id="@+id/image_action"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="search"
+        android:background="@color/colorPrimary"
+        android:src="@drawable/back_button"
+        android:contentDescription="doSomething" />
 
 
-            android:background="@color/colorPrimary"
-            android:src="@drawable/back_button" />
-
-
-    </TableRow>
-
-</TableLayout>
+</LinearLayout>

@@ -26,14 +26,14 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     MyAdapterListener listener;
 
     // data is passed into the constructor
-    recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity, MyAdapterListener listener) {
+    public recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity, MyAdapterListener listener) {
         this.what_activity = what_activity;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.listener = listener;
     }
 
-    recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity) {
+    public recycleview_adapter_shopping(Context context, ArrayList<item> data, int what_activity) {
         this.what_activity = what_activity;
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -122,6 +122,8 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                     listener.onContainerClick(getItems()); // invoke onContainerClick from cartActivity to update subtotal
                 }
                 else {
+
+                    if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
                     int n = Integer.parseInt(q.getText().toString());
                     n++;
                     q.setText(n + "");
@@ -132,6 +134,8 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             }
             if (view.getId() == b2.getId()) {
                 //  Toast.makeText(view.getContext(), "val: " + q.getText() + " +ITEM PRESSED = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+
                 int n = Integer.parseInt(q.getText() + "");
                 if (n == 0) return;
                 n--;
@@ -150,7 +154,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
