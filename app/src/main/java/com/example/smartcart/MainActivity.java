@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     userBoard _user = null;
-    private HashMap<String, item> myCart;
+    private ArrayList<item> myCart;
     search s;
 
     public static Context contextOfApplication;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myCart = new HashMap<>();
+        myCart = new ArrayList<>();
         contextOfApplication = getApplicationContext();
 
         // set action bar:
@@ -106,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openSearch(String data){
-        s = new search(this);
+        s = new search(this, myCart);
         s.show();
+
         Button ok = s.findViewById(R.id.ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = data.getExtras();
 
                 if (bundle != null) {
-                    myCart = (HashMap<String, item>) bundle.getSerializable("restore_items");
+                    myCart = bundle.getParcelable("restore_items");
                 }
             }
         }
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         String metaData = gson.toJson(_user); // convert metaData to JSON
         Intent a = new Intent(getApplicationContext() , shoppingActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("restore_items", myCart);
+        bundle.putParcelableArrayList("restore_items", myCart);
         a.putExtra("userMetaData", metaData);
         a.putExtras(bundle);
         startActivityForResult(a, 1);

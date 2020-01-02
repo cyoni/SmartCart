@@ -68,7 +68,17 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     }
 
 
-
+/*
+    public ArrayList<item> getItems() {
+        ArrayList<item> l = new ArrayList<>();
+        for (int i=0; i< getItemCount(); i++){
+            item tmp = getItem(i);
+            if (tmp.getMyQuantity() == 0) continue;
+            l.add(tmp);
+        }
+        return l;
+    }
+    */
     public ArrayList<item> getItems() {
         ArrayList<item> l = new ArrayList<>();
         for (int i=0; i< getItemCount(); i++){
@@ -127,7 +137,8 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                     int n = Integer.parseInt(q.getText().toString());
                     n++;
                     q.setText(n + "");
-                    mData.set(getAdapterPosition(), mData.get(getAdapterPosition()).increase());
+
+                    mData.set( getAdapterPosition() , mData.get(getAdapterPosition()).increase());
                     price.setText(mData.get(getAdapterPosition()).setPrice());
                 }
 
@@ -141,7 +152,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                 n--;
                 q.setText(n + "");
 
-                mData.set(getAdapterPosition(), mData.get(getAdapterPosition()).decrease());
+                mData.set( getAdapterPosition(), mData.get(getAdapterPosition()).decrease());
                 price.setText(mData.get(getAdapterPosition()).setPrice());
             }
 
@@ -164,7 +175,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     }
 
     public interface MyAdapterListener {
-        void onContainerClick(ArrayList<item> items);
+        void onContainerClick(ArrayList< item> items);
     }
 
 }

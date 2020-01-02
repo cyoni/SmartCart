@@ -40,13 +40,14 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
     public Activity c;
     EditText s;
     public ArrayList<item> list;
-    public ArrayList<item> myCart;
+    private ArrayList<item> myCart;
     ArrayList<String> cat_list;
     private String cat;
 
-    public search(Activity a) {
+    public search(Activity a, ArrayList<item> myCart) {
         super(a);
         this.c = a;
+        this.myCart = myCart;
     }
 
     @Override
@@ -197,10 +198,10 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
         myCart = adapter.getItems();
     }
 
-    public HashMap<String, item> getItems() {
-        HashMap<String, item> l = new HashMap<>();
+    public ArrayList<item> getItems() {
+        ArrayList< item> l = new ArrayList<>();
         for (int i=0; i<myCart.size(); i++){
-            l.put(myCart.get(i).getName(), myCart.get(i));
+            l.add(myCart.get(i));
         }
 
         return l;

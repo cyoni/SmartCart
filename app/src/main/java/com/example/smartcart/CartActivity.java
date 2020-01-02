@@ -81,13 +81,13 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
 
     private void setView()
     {
-        HashMap<String, item> myCart = new HashMap<>();
+        list = new ArrayList<>();
         Intent intent = getIntent(); // get intent from shoppingActivity - to set the items that the user choose to the shopping list
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            myCart = (HashMap<String, item>) bundle.getSerializable("my_items");
+            list =  bundle.getParcelableArrayList("my_items");
         }
-        if (myCart.size() == 0) {
+        if (list.size() == 0) {
             controller.toast(this, "Your cart is empty");
             Button buy = findViewById(R.id.buy);
             buy.setEnabled(false);
@@ -96,9 +96,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
 
         Gson gson = new Gson(); // set user Data
         _user = gson.fromJson(intent.getStringExtra("userMetaData"), userBoard.class);
-        for (Map.Entry<String, item> entry : myCart.entrySet()) {
-            list.add(entry.getValue());
-        }
+
 
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);

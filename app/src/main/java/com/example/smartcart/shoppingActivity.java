@@ -109,6 +109,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
     }
 
     private void restoreCart() {
+        ArrayList<item> list = new ArrayList<>();
         Intent intent = getIntent(); // get intent from shoppingActivity - to set the items that the user choose to the shopping list
         Bundle bundle = intent.getExtras();
 
@@ -116,7 +117,12 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         _user = gson.fromJson(intent.getStringExtra("userMetaData"), userBoard.class);
 
         if (bundle != null) {
-            myCart = (HashMap<String, item>) bundle.getSerializable("restore_items");
+            list  =  bundle.getParcelableArrayList("restore_items");
+        }
+
+        if (list == null) return;
+        for (int i=0; i<list.size(); i++){
+            myCart.put(list.get(i).getName(), list.get(i));
         }
 
     }
@@ -209,6 +215,14 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         startActivityForResult(a, 1);
     }
 
+    public ArrayList<item> convertToArrayList(){
+        ArrayList<item> list = new ArrayList<>();
+        for (Map.Entry<String, item> entry : myCart.entrySet()) {
+            list.add(entry.getValue());
+        }
+
+            return list;
+    }
     public void cart(View view) {
 
         Gson gson = new Gson();
@@ -216,7 +230,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
         Intent a = new Intent(getApplicationContext() , CartActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("my_items", myCart);
+        bundle.putParcelableArrayList("my_items", convertToArrayList());
 
         bundle.putSerializable("restore_items", myCart);
         a.putExtra("userMetaData", metaData);
@@ -225,7 +239,4 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         startActivityForResult(a, 2);
     }
 }
-
-
-
 
