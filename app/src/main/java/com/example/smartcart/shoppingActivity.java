@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +38,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
     Button cart_button;
     RecyclerView items_list;
     ProgressBar load;
+    ArrayList<String> cat_list;
     userBoard _user;
 
     // here all the items will be saved and will be sent to my cart activity
@@ -69,6 +72,23 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         });
 
 
+
+        EditText search = findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {        }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                    filterCat(editable.toString());
+            }
+        });
+
+
         // get category list:
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -77,16 +97,16 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                ArrayList<String> list = new ArrayList<>();
+               cat_list  = new ArrayList<>();
 
                 if (dataSnapshot.exists()){
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String buttonName = ds.getKey();
-                        list.add(buttonName);
+                        cat_list.add(buttonName);
                     }
 
 
-                    setRecycleView(list);
+                    setRecycleView(cat_list);
 
                     cart_button.setVisibility(View.VISIBLE);
                     items_list.setVisibility(View.VISIBLE);
@@ -106,6 +126,18 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         restoreCart();
         updateNum(myCart.size()); // change button's value
 
+    }
+
+    private void filterCat(String what) {
+        ArrayList<String> search_list = new ArrayList<>();
+        if (what.trim().length() == 0) setRecycleView(cat_list);
+        else{
+
+            for (int i=0; i<cat_list.size(); i++){
+                if (cat_list.get(i).contains(what)) search_list.add(cat_list.get(i));
+            }
+            setRecycleView(search_list);
+        }
     }
 
     private void restoreCart() {
@@ -130,9 +162,10 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
     @Override
     public void onBackPressed() {
+
         Intent intent = new Intent(this, MainActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("restore_items", myCart);
+        bundle.putParcelableArrayList("restore_items", controller.convertToArraylist(myCart));
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
@@ -190,6 +223,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         recyclerView.setAdapter(adapter);
 
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
+        //TODO
 
 
     }
@@ -215,14 +249,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         startActivityForResult(a, 1);
     }
 
-    public ArrayList<item> convertToArrayList(){
-        ArrayList<item> list = new ArrayList<>();
-        for (Map.Entry<String, item> entry : myCart.entrySet()) {
-            list.add(entry.getValue());
-        }
 
-            return list;
-    }
     public void cart(View view) {
 
         Gson gson = new Gson();
@@ -230,7 +257,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
         Intent a = new Intent(getApplicationContext() , CartActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("my_items", convertToArrayList());
+        bundle.putParcelableArrayList("my_items", controller.convertToArraylist(myCart));
 
         bundle.putSerializable("restore_items", myCart);
         a.putExtra("userMetaData", metaData);

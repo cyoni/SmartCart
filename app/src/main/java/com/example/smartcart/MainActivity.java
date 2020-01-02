@@ -1,42 +1,30 @@
 package com.example.smartcart;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.os.Bundle;
-import android.text.DynamicLayout;
+
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.example.smartcart.dialog.confirmPurchase;
 import com.example.smartcart.dialog.search;
-import com.firebase.client.Firebase;
-import com.google.firebase.FirebaseError;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.type.Money;
 
-import androidx.annotation.NonNull;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
+import com.google.gson.Gson;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -140,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = data.getExtras();
 
                 if (bundle != null) {
-                    myCart = bundle.getParcelable("restore_items");
+                    myCart = bundle.getParcelableArrayList("restore_items");
                 }
             }
         }

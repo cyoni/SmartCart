@@ -39,15 +39,15 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
     recycleview_adapter_shopping adapter;
     public Activity c;
     EditText s;
-    public ArrayList<item> list;
-    private ArrayList<item> myCart;
-    ArrayList<String> cat_list;
+    public ArrayList<item> search_list;
+    private HashMap<String, item> myCart;
+    private ArrayList<String> cat_list;
     private String cat;
 
     public search(Activity a, ArrayList<item> myCart) {
         super(a);
         this.c = a;
-        this.myCart = myCart;
+        this.myCart = controller.convertToHashmap(myCart);
     }
 
     @Override
@@ -57,8 +57,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
         setContentView(R.layout.dialog_search);
        s = findViewById(R.id.search);
 
-       list = new ArrayList<>();
-        myCart= new ArrayList<>();
+        search_list = new ArrayList<>();
 
        getCategories();
 
@@ -118,7 +117,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
 
     private void FindItems(String str) {
         final String find = str;
-        list.clear();
+        search_list.clear();
         for (int i=0; i<cat_list.size(); i++){
             cat = cat_list.get(i);
 
@@ -145,7 +144,12 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
 
                             if (name.contains(find)){
                                 item tmpItem = new item(name, cat, Integer.valueOf(price), Integer.valueOf(q));
-                                list.add(tmpItem);
+
+                                // look for this item, if you have it already in myCart
+
+                                if (myCart.get(tmpItem.getName()) != null) {controller.toast(getContext(), tmpItem.getName() + "," + tmpItem.getMyQuantity()); search_list.add(myCart.get(tmpItem.getName()));}
+                                else
+                                    search_list.add(tmpItem);
                             }
 
                             setRecycleView();
@@ -187,7 +191,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new recycleview_adapter_shopping(getContext(), list, 0);
+        adapter = new recycleview_adapter_shopping(getContext(), search_list, 0); // list is the user's cart
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -195,15 +199,13 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
 
     @Override
     public void onItemClick(View view, int position) {
-        myCart = adapter.getItems();
+        myCart = controller.convertToHashmap(adapter.getItems());
+    }
+    public int how(){
+        return myCart.size();
     }
 
     public ArrayList<item> getItems() {
-        ArrayList< item> l = new ArrayList<>();
-        for (int i=0; i<myCart.size(); i++){
-            l.add(myCart.get(i));
-        }
-
-        return l;
+     return adapter.getItems();
     }
 }

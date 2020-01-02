@@ -133,20 +133,20 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
                 }
                 else {
 
-                    if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
                     int n = Integer.parseInt(q.getText().toString());
                     n++;
                     q.setText(n + "");
 
                     mData.set( getAdapterPosition() , mData.get(getAdapterPosition()).increase());
                     price.setText(mData.get(getAdapterPosition()).setPrice());
+                    /*if (mClickListener != null)*/
+                    mClickListener.onItemClick(view, getAdapterPosition());
+
                 }
 
             }
             if (view.getId() == b2.getId()) {
                 //  Toast.makeText(view.getContext(), "val: " + q.getText() + " +ITEM PRESSED = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-                if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-
                 int n = Integer.parseInt(q.getText() + "");
                 if (n == 0) return;
                 n--;
@@ -154,6 +154,9 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
                 mData.set( getAdapterPosition(), mData.get(getAdapterPosition()).decrease());
                 price.setText(mData.get(getAdapterPosition()).setPrice());
+
+               /* if (mClickListener != null) */
+                mClickListener.onItemClick(view, getAdapterPosition());
             }
 
         }

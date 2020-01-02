@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +38,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
     Button ok_button;
     RecyclerView items_list;
     ProgressBar load;
-
+    ArrayList<item> list;
     HashMap<String, item> cat_list;
 
     @Override
@@ -66,6 +68,24 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
         });
 
 
+
+
+        EditText search = findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {        }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                 filterList(editable.toString());
+            }
+        });
+
+
         Intent intent = getIntent(); // get intent from shoppingActivity - to set the items that the user choose to the shopping list
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
@@ -84,7 +104,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists()){
-                    ArrayList<item> list = new ArrayList<>();
+                     list = new ArrayList<>();
 
                     Iterator<DataSnapshot> a = dataSnapshot.getChildren().iterator();
                     DataSnapshot tmp;
@@ -96,7 +116,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                         String name = tmp.getKey()+"";
 
                         item tmpItem;
-                            if (cat_list.get(name) != null){ // if you already exists in the list
+                            if (cat_list.get(name) != null){ // if you already appear in the list
                                  tmpItem = cat_list.get(name);
                                  list.add(tmpItem);
                             }
@@ -123,6 +143,17 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
         });
 
+    }
+
+    private void filterList(String what) {
+        ArrayList<item> search_list = new ArrayList<>();
+        if (what.trim().length() == 0) setRecycleView(list);
+        else{
+            for (int i=0; i<list.size(); i++){
+                if (list.get(i).getName().contains(what)) search_list.add(list.get(i));
+            }
+            setRecycleView(search_list);
+        }
     }
 
     private void setRecycleView(ArrayList<item> list )

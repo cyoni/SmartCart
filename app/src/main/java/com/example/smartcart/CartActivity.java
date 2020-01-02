@@ -11,9 +11,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +53,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+
         // set action bar:
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -65,6 +69,35 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         list = new ArrayList<>();
         setView();
 
+
+        ////
+        EditText search = findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {        }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filterList(editable.toString());
+            }
+        });
+
+
+    }
+
+    private void filterList(String what) {
+        ArrayList<item> search_list = new ArrayList<>();
+        if (what.trim().length() == 0) setRecycleView(list);
+        else{
+            for (int i=0; i<list.size(); i++){
+                if (list.get(i).getName().contains(what)) search_list.add(list.get(i));
+            }
+            setRecycleView(search_list);
+        }
     }
 
     @Override
@@ -97,16 +130,18 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         Gson gson = new Gson(); // set user Data
         _user = gson.fromJson(intent.getStringExtra("userMetaData"), userBoard.class);
 
+        setRecycleView(list);
+    }
 
+    private void setRecycleView(ArrayList<item> l){
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, list, 1, this);
+        adapter = new recycleview_adapter_shopping(this, l, 1, this);
         adapter.setClickListener(this);
 
         recyclerView.setAdapter(adapter);
         setSubTotal();
-
     }
     private int getSum(){
 
