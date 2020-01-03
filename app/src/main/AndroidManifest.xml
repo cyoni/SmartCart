@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".historyList"></activity>
-        <activity android:name=".searchActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".chooseItemsActivity" />
         <activity android:name=".shoppingActivity" />
