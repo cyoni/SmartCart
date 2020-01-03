@@ -82,15 +82,14 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
 
                         if (items.indexOf(";") != -1) {
                             String my_items[] = items.split(";");
+                            int total = -1;
                             for (int i = 0; i < my_items.length; i++) {
                                 String item[] = my_items[i].split(",");
-
+                                total = Integer.parseInt(item[4]);
                                 item tmpItem = new item(item[1], item[0], Integer.parseInt(item[3]), Integer.parseInt(item[2]));
                                 tmp_items.add(tmpItem);
-
-
-                            }
-                            list.add(new order(Integer.parseInt(tmp.getKey()), tmp_items));
+                                                            }
+                            list.add(new order(Integer.parseInt(tmp.getKey()), total ,date, address, tmp_items));
                         }
 
                     }
@@ -122,7 +121,6 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
         for (int i=0; i< list.size(); i++){
             int orderNum = o.getNumber();
             if (list.get(i).getNumber() == orderNum){
-
                 Intent a = new Intent(this, historyList.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("my_last_items", list.get(i).getItems());

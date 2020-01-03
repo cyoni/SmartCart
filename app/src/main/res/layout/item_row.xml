@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
@@ -15,9 +16,8 @@
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
         android:textSize="30sp"
-        android:textColor="#5468F1"
+        android:textColor="#181818"
         tools:text="---" />
 
     <TextView
@@ -64,5 +64,17 @@
 
         android:background="@drawable/circular_button"
         android:text="-" />
+
+    <TextView
+        android:id="@+id/qq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:textStyle="bold"
+        />
 
 </RelativeLayout>

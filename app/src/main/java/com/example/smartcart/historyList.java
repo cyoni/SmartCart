@@ -23,9 +23,6 @@ public class historyList extends AppCompatActivity implements recycleview_adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_list);
 
-
-
-
         // set action bar:
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -46,7 +43,6 @@ public class historyList extends AppCompatActivity implements recycleview_adapte
 
         if (bundle != null) {
             myCartFromPast = bundle.getParcelableArrayList("my_last_items");
-
             setRecycleView(myCartFromPast);
         }
 
@@ -61,7 +57,7 @@ public class historyList extends AppCompatActivity implements recycleview_adapte
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, items_list);
+        adapter = new recycleview_adapter_shopping(this, items_list, "history");
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 

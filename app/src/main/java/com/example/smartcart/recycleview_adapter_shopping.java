@@ -22,6 +22,7 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     private ArrayList<item> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private String what;
     MyAdapterListener listener;
 
     // data is passed into the constructor
@@ -29,11 +30,13 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.listener = listener;
+        this.what = "";
     }
 
-    public recycleview_adapter_shopping(Context context, ArrayList<item> data) {
+    public recycleview_adapter_shopping(Context context, ArrayList<item> data, String what) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.what = what;
     }
 
     // inflates the row layout from xml when needed
@@ -90,10 +93,17 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             q = itemView.findViewById(R.id.q);
             price = itemView.findViewById(R.id.price);
 
-
-            b1.setOnClickListener(this);
-            b2.setOnClickListener(this);
-
+            if (what.equals("history")){
+             b1.setVisibility(View.INVISIBLE);
+             b2.setVisibility(View.INVISIBLE);
+             q.setVisibility(View.INVISIBLE); // old quantity
+             q = itemView.findViewById(R.id.qq); // new quantity - change location
+             q.setVisibility(View.VISIBLE);
+            }
+            else {
+                b1.setOnClickListener(this);
+                b2.setOnClickListener(this);
+            }
             itemView.setOnClickListener(this);
         }
 
@@ -103,14 +113,11 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
             // if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
 
             if (view.getId() == b1.getId()) {
-
                     int n = Integer.parseInt(q.getText().toString());
                     n++;
                     q.setText(n + "");
-
                     mData.set( getAdapterPosition() , mData.get(getAdapterPosition()).increase());
                     price.setText(mData.get(getAdapterPosition()).setPrice());
-                    /*if (mClickListener != null)*/
                     mClickListener.onItemClick(view, getAdapterPosition());
 
             }

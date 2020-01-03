@@ -31,7 +31,7 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = mInflater.inflate(R.layout.item_row , parent, false);
+        View view = mInflater.inflate(R.layout.order_row , parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,16 +39,11 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         int orderNum = mData.get(position).getNumber();
-      /*
+        String orderDate = mData.get(position).getDate();
 
-        int my_q = mData.get(position).getMyQuantity();
-
-        holder.myTextView.setText(name);
-        holder.price.setText(mData.get(position).setPrice());
-        holder.q.setText(my_q+"");
-*/
-
-      holder.myTextView.setText(orderNum+"");
+        holder.myTextView.setText(orderNum+", " + orderDate);
+        holder.price.setText("₪" +mData.get(position).getPrice());
+        holder.address.setText(mData.get(position).getAddress());
 
     }
 
@@ -75,39 +70,13 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
-        Button b1, b2;
-        TextView price, q;
+        TextView price, address;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.item_name);
-            b1 = itemView.findViewById(R.id.b1);
-            b2 = itemView.findViewById(R.id.b2);
-            q = itemView.findViewById(R.id.q);
+            myTextView = itemView.findViewById(R.id.NumNdate);
             price = itemView.findViewById(R.id.price);
-
-            b1.setVisibility(View.GONE);
-            b2.setVisibility(View.GONE);
-            q.setVisibility(View.GONE);
-            price.setVisibility(View.GONE);
-
-
-            myTextView.setTextSize(20);
-
-
-    /*
-
-            b1.setOnClickListener(this);
-            if (what_activity == 0) { // chooseItemsActivity
-                b2.setOnClickListener(this);
-
-            }
-            else{ // cartActivity
-                b1.setText("x");
-                b1.setTextColor(Color.RED);
-                b2.setVisibility(View.GONE);
-
-            }*/
+            address = itemView.findViewById(R.id.address);
             itemView.setOnClickListener(this);
         }
 

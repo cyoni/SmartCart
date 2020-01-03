@@ -191,7 +191,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new recycleview_adapter_shopping(getContext(), search_list); // list is the user's cart
+        adapter = new recycleview_adapter_shopping(getContext(), search_list,""); // list is the user's cart
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }

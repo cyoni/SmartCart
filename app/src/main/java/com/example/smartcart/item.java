@@ -10,20 +10,19 @@ import java.util.ArrayList;
 // this class represents an item
 public class item  implements Parcelable {
     String name, category;
-    int price, q// available quantity
-            , myQuantity=0;
+    int price,  myQuantity=0;
     ArrayList<item> items;
 
 
 
-    public item(String name, int price, int q){
+    public item(String name, int price){
         this.name = name;
-        this.q = q;
         this.price = price;
     }
 
     public item(String name, String category, int price, int q){
-        this(name, price, q);
+        this(name, price);
+        this.myQuantity = q;
         this.category = category;
     }
 
@@ -35,7 +34,6 @@ public class item  implements Parcelable {
         name = in.readString();
         category = in.readString();
         price = in.readInt();
-        q = in.readInt();
         myQuantity = in.readInt();
     }
 
@@ -97,7 +95,6 @@ public class item  implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(category);
         parcel.writeInt(price);
-        parcel.writeInt(q);
         parcel.writeInt(myQuantity);
     }
 

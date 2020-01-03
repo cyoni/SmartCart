@@ -111,7 +111,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                     while (a.hasNext()) {
                         tmp = a.next();
                         final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
-                        String q = dataMap.get("quantity")+""; // available quantity
+                      //  String q = dataMap.get("quantity")+""; // available quantity
                         String price = dataMap.get("price")+"";
                         String name = tmp.getKey()+"";
 
@@ -121,7 +121,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                                  list.add(tmpItem);
                             }
                             else{ // otherwise
-                               tmpItem = new item(name, cat, Integer.valueOf(price), Integer.valueOf(q));
+                               tmpItem = new item(name, cat, Integer.valueOf(price), 0);
                                list.add(tmpItem);
                         }
                     }
@@ -161,7 +161,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_shopping(this, list);
+        adapter = new recycleview_adapter_shopping(this, list,"");
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
