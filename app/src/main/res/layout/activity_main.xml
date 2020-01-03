@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,8 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:layout_below="@id/textView2"
         android:text="What would you like to buy today? "
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/btnStartShopping"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Start Shopping"
+        android:layout_above="@id/button2"
         android:onClick="shoppingActivity"
         />
 
@@ -42,9 +44,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:onClick="lastShopping"
+        android:layout_alignParentBottom="true"
+
         android:text="Purchase History" />
 
 
-</LinearLayout>
+</RelativeLayout>
 
 
