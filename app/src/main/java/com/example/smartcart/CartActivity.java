@@ -105,10 +105,10 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
 
     @Override
     public void onBackPressed() {
-        if (list.size() != 0) {
+        if (list != null) {
             Intent intent = new Intent(this, shoppingActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putParcelableArrayList("items", adapter.getItems());
+            bundle.putParcelableArrayList("items", list);
             intent.putExtras(bundle);
             setResult(RESULT_OK, intent);
         }
@@ -127,8 +127,10 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
             //Remove swiped item from list and notify the RecyclerView
+
             int position = viewHolder.getAdapterPosition();
             list.remove(position);
+
             adapter.notifyDataSetChanged();
             setSubTotal();
         }
@@ -199,6 +201,10 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
             Intent a = new Intent(this, LoginActivity.class);
             startActivity(a);
 
+        }
+        else if (list.size() == 0){
+
+            controller.toast(this, "Your cart is empty");
         }
         else{
         // open buy Dialog

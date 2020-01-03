@@ -4,13 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 // this class represents an item
-public class item implements Parcelable {
+public class item  implements Parcelable {
     String name, category;
     int price, q// available quantity
             , myQuantity=0;
+    ArrayList<item> items;
+
 
 
     public item(String name, int price, int q){
@@ -24,6 +27,9 @@ public class item implements Parcelable {
         this.category = category;
     }
 
+    public item(ArrayList<item> items){
+        this.items = items;
+    }
 
     protected item(Parcel in) {
         name = in.readString();
@@ -31,6 +37,10 @@ public class item implements Parcelable {
         price = in.readInt();
         q = in.readInt();
         myQuantity = in.readInt();
+    }
+
+    public int getSize(){
+        return items.size();
     }
 
     public static final Creator<item> CREATOR = new Creator<item>() {

@@ -19,20 +19,19 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     private ArrayList<order> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    MyAdapterListener listener;
 
     // data is passed into the constructor
-    recycleview_adapter_order(Context context, ArrayList<order> data, MyAdapterListener listener) {
+   public recycleview_adapter_order(Context context, ArrayList<order> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        this.listener = listener;
     }
 
 
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_row, parent, false);
+
+        View view = mInflater.inflate(R.layout.item_row , parent, false);
         return new ViewHolder(view);
     }
 
@@ -115,10 +114,7 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
 
         @Override
         public void onClick(View view) {
-          //   if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-
-
-           // System.out.println(mData.get(getAdapterPosition()).getItems().size()+ "##" );
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
                    }
     }
 
@@ -137,8 +133,5 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
         void onItemClick(View view, int position);
     }
 
-    public interface MyAdapterListener {
-        void onContainerClick(ArrayList<order> items);
-    }
 
 }

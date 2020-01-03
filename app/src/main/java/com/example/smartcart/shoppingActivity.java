@@ -222,9 +222,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
-        //TODO
-
+       // recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
     }
 

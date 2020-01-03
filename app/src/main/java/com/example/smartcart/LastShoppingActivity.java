@@ -1,8 +1,10 @@
 package com.example.smartcart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class LastShoppingActivity extends AppCompatActivity implements recycleview_adapter_order.ItemClickListener, recycleview_adapter_order.MyAdapterListener { // {
+public class LastShoppingActivity extends AppCompatActivity implements recycleview_adapter_order.ItemClickListener { // {
     private FirebaseAuth mAuth;
     private ArrayList<order> list;
     private recycleview_adapter_order adapter;
@@ -34,12 +37,29 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_shopping);
 
+
+        // set action bar:
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+        View view = getSupportActionBar().getCustomView();
+        ImageView img = view.findViewById(R.id.image_action);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+
         list = new ArrayList<>();
-        getHistoryList();
+        getOrderList();
 
     }
 
-    private void getHistoryList() { // example: the child is supposed to be like this: apple,5,1;banana,1,2;orange,4,5;lemon,5,6. See user zSW3dnUfzGMlYhTuMWgVzy6cSlT2
+
+    private void getOrderList() { // example: the child is supposed to be like this: apple,5,1;banana,1,2;orange,4,5;lemon,5,6. See user zSW3dnUfzGMlYhTuMWgVzy6cSlT2
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -48,10 +68,8 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String output = "";
 
                 if (dataSnapshot.exists()) {
-
                     for (DataSnapshot tmp : dataSnapshot.getChildren()) {
 
                         final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
@@ -77,7 +95,7 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
 
                     }
 
-                    setRecycleView();
+                    setRecycleView(list);
 
                 }
                 else{
@@ -94,26 +112,38 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
 
     }
 
+
+
     @Override
     public void onItemClick(View view, int position) {
-  //  controller.toast(this, adapter.getItem(position).getNumber()+".");
+        order o = adapter.getItem(position);
 
-        //setRecycleView(adapter.getItem(position).getItems().size() +"");
+
+        for (int i=0; i< list.size(); i++){
+            int orderNum = o.getNumber();
+            if (list.get(i).getNumber() == orderNum){
+
+                Intent a = new Intent(this, historyList.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("my_last_items", list.get(i).getItems());
+                a.putExtras(bundle);
+                startActivity(a);
+                break;
+            }
+        }
+
+
     }
 
-    @Override
-    public void onContainerClick(ArrayList<order> items) {
+    private void setRecycleView(ArrayList<order> l) {
+            RecyclerView recyclerView = findViewById(R.id.list);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new recycleview_adapter_order(this,  l);
+            adapter.setClickListener(this);
+            recyclerView.setAdapter(adapter);
+        }
 
-    }
-
-    private void setRecycleView() {
-        // set up the RecyclerView
-
-        RecyclerView recyclerView = findViewById(R.id.list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new recycleview_adapter_order(this, list, this);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
-    }
 }
+
+
 

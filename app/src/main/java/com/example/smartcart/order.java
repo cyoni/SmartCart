@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class order {
     private int number;
     private ArrayList<item> items;
+    private ArrayList<order> orders;
 
 
     public order(int number, ArrayList<item> items){
@@ -14,6 +15,15 @@ public class order {
 
     public ArrayList<item>  getItems() {
     return items;
+    }
+
+    public order(ArrayList<order> orders){
+        this.orders = orders;
+    }
+
+
+    public int getSize(){
+        return orders.size();
     }
 
     public item getItem(int n) {
