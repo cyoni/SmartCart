@@ -82,10 +82,10 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
 
                         if (items.indexOf(";") != -1) {
                             String my_items[] = items.split(";");
-                            int total = -1;
+                            int total = 0;
                             for (int i = 0; i < my_items.length; i++) {
                                 String item[] = my_items[i].split(",");
-                                total = Integer.parseInt(item[4]);
+                                total += Integer.parseInt(item[4]);
                                 item tmpItem = new item(item[1], item[0], Integer.parseInt(item[3]), Integer.parseInt(item[2]));
                                 tmp_items.add(tmpItem);
                                                             }
