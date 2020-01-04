@@ -223,7 +223,9 @@ public class addItemActivity extends AppCompatActivity {
         EditText t_cat = findViewById(R.id.cat);
 
         String cat = t_cat.getText().toString().trim();
+
         String name = t_name.getText().toString().trim();
+
         String price = t_price.getText().toString().trim();
         String quantity = t_quantity.getText().toString().trim();
 
@@ -232,6 +234,8 @@ public class addItemActivity extends AppCompatActivity {
             controller.toast(this, "Please fill all values!");
             return;
         }
+        cat = cat.toLowerCase();
+        cat = cat.substring(0,1).toUpperCase() + cat.substring(1);
 
         if (del.isChecked()){
             mDatabase.child("items").child(cat).child(name).removeValue();
@@ -248,9 +252,12 @@ public class addItemActivity extends AppCompatActivity {
             newItem.put("price", Integer.valueOf(price));
             newItem.put("quantity", Integer.valueOf(quantity));
 
+            name = name.toLowerCase();
+            name = name.substring(0,1).toUpperCase() + name.substring(1);
+
+
             mDatabase.child("items").child(cat).child(name).setValue(newItem);
             mDatabase.child("categories").child(cat).setValue(cat);
-
 
             controller.toast(this, name + " has been updated!");
             getCatList();

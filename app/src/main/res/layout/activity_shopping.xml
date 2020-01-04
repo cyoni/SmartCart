@@ -11,7 +11,9 @@
         android:id="@+id/list"
         android:background="#4CAF50"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50sp"
+        />
 
     <Button
         android:id="@+id/cart_button"
@@ -22,6 +24,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
+
         android:onClick="cart"
         android:text="Cart" />
 
