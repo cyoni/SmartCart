@@ -121,7 +121,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                                  list.add(tmpItem);
                             }
                             else{ // otherwise
-                               tmpItem = new item(name, cat, Integer.valueOf(price), 0);
+                               tmpItem = new item(name, cat, Double.valueOf(price), 0);
                                list.add(tmpItem);
                         }
                     }

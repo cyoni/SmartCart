@@ -249,7 +249,7 @@ public class addItemActivity extends AppCompatActivity {
             loadingButton.showLoading();
 
             Map<String, Object> newItem = new HashMap<>();
-            newItem.put("price", Integer.valueOf(price));
+            newItem.put("price", Double.valueOf(price));
             newItem.put("quantity", Integer.valueOf(quantity));
 
             name = name.toLowerCase();

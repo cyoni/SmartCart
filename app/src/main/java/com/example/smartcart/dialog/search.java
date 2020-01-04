@@ -143,7 +143,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
                             String name = tmp.getKey() + "";
 
                             if (name.contains(find)){
-                                item tmpItem = new item(name, cat, Integer.valueOf(price), 0);
+                                item tmpItem = new item(name, cat, Double.valueOf(price), 0);
 
                                 // look for this item, if you have it already in myCart
 
