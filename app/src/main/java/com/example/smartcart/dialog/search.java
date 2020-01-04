@@ -138,12 +138,12 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
                             final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
 
 
-                            String q = dataMap.get("quantity") + ""; // available quantity
+                          //  String q = dataMap.get("quantity") + ""; // available quantity
                             String price = dataMap.get("price") + "";
                             String name = tmp.getKey() + "";
 
                             if (name.contains(find)){
-                                item tmpItem = new item(name, cat, Integer.valueOf(price), Integer.valueOf(q));
+                                item tmpItem = new item(name, cat, Integer.valueOf(price), 0);
 
                                 // look for this item, if you have it already in myCart
 
