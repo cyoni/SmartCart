@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="5dp"
+    android:background="@color/colorPrimary"
+
     >
 
 
@@ -13,8 +15,9 @@
         android:layout_width="fill_parent"
         android:layout_height="36dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
         android:hint="Search..."
+        android:background="@color/colorPrimary"
+
         android:textColor="@color/white"/>
 
     <ImageButton
@@ -22,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:onClick="search"
-        android:background="@color/colorPrimary"
+        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/back_button"
         android:contentDescription="doSomething" />
 
