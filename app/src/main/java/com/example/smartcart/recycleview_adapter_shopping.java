@@ -3,6 +3,7 @@ package com.example.smartcart;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Parcelable;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +51,12 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String name = mData.get(position).getName();
-
         int my_q = mData.get(position).getMyQuantity();
-
         holder.myTextView.setText(name);
         holder.price.setText(mData.get(position).setPrice());
         holder.q.setText(my_q+"");
+
+        if (what.equals("SEARCH")){ holder.myTextView.setTextSize(25); holder.myTextView.setWidth(300);}
 
 
     }

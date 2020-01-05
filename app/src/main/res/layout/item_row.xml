@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,21 +15,22 @@
 
     <TextView
         android:id="@+id/item_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
         android:textColor="#181818"
-        tools:text="---" />
+        android:textSize="30sp"
+        tools:text="Some Item" />
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_name"
-        android:textColor="@color/Black"
         android:layout_alignParentLeft="true"
+        android:layout_marginTop="0dp"
         android:layout_toLeftOf="@id/q"
-        android:text="---" />
+        android:text="---"
+        android:textColor="@color/Black" />
 
     <TextView
         android:id="@+id/q"
@@ -37,7 +39,6 @@
         android:layout_below="@id/item_name"
         android:layout_marginTop="-30dp"
         android:layout_marginRight="13dp"
-
         android:layout_toLeftOf="@id/b2"
         android:text="0"
         android:textColor="@color/Black"
@@ -47,11 +48,9 @@
         android:id="@+id/b1"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/circular_button"
         android:layout_alignParentEnd="true"
 
         android:text="+" />
-
 
 
     <Button
@@ -76,5 +75,6 @@
         android:visibility="gone"
         android:textStyle="bold"
         />
+
 
 </RelativeLayout>
