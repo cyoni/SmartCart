@@ -7,10 +7,10 @@
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/NumNdate"
+        android:id="@+id/orderId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="15487953 - 1/1/2020"
+        android:text="15487953"
         android:textColor="#212864"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -19,10 +19,19 @@
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/NumNdate"
+        android:layout_below="@id/orderId"
         android:text="$10" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="15sp"
+        android:layout_below="@id/orderId"
+        android:text="1/1/2020" />
 
     <TextView
         android:id="@+id/address"
