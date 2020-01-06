@@ -1,14 +1,17 @@
-package com.example.smartcart;
+package com.example.smartcart.recycleview;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.smartcart.R;
+import com.example.smartcart.item;
+import com.example.smartcart.order;
 
 import java.util.ArrayList;
 
@@ -21,7 +24,7 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-   public recycleview_adapter_order(Context context, ArrayList<order> data) {
+    public recycleview_adapter_order(Context context, ArrayList<order> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -35,6 +38,12 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
         return new ViewHolder(view);
     }
 
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(800);
+        view.startAnimation(anim);
+    }
+
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -45,6 +54,9 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
         holder.price.setText("₪" +mData.get(position).getPrice());
         holder.address.setText(mData.get(position).getAddress());
         holder.date.setText(orderDate);
+
+        setFadeAnimation(holder.myTextView);
+
     }
 
     // total number of rows
@@ -85,7 +97,7 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-                   }
+        }
     }
 
     // convenience method for getting data at click position
@@ -94,7 +106,7 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

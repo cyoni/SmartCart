@@ -1,21 +1,19 @@
-package com.example.smartcart;
+package com.example.smartcart.recycleview;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Parcelable;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smartcart.R;
+import com.example.smartcart.item;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 public class recycleview_adapter_shopping extends RecyclerView.Adapter<recycleview_adapter_shopping.ViewHolder> {
@@ -58,9 +56,14 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
 
         if (what.equals("SEARCH")){ holder.myTextView.setTextSize(25); holder.myTextView.setWidth(300);}
 
+        setFadeAnimation(holder.myTextView);
 
     }
-
+       private void setFadeAnimation(View view) {
+            AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+            anim.setDuration(800);
+            view.startAnimation(anim);
+        }
     // total number of rows
     @Override
     public int getItemCount()

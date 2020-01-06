@@ -3,11 +3,10 @@ package com.example.smartcart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
+import com.example.smartcart.recycleview.recycleview_adapter_order;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,12 +88,16 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
                                 item tmpItem = new item(item[1], item[0], Double.parseDouble(item[3]), Integer.parseInt(item[2]));
                                 tmp_items.add(tmpItem);
                                                             }
-                            list.add(new order(Integer.parseInt(tmp.getKey()), total ,date, address, tmp_items));
+                            list.add(new order(Integer.parseInt(tmp.getKey()), "", total ,date, address, tmp_items));
                         }
 
                     }
+                    ArrayList<order> tmpList = new ArrayList<>(); // to get the opposite order
+                    for (int i=0;i<list.size(); i++) tmpList.add(list.get(list.size()-1-i));
 
-                    setRecycleView(list);
+                    setRecycleView(tmpList);
+                    ProgressBar p = findViewById(R.id.progressBar);
+                    p.setVisibility(View.GONE);
 
                 }
                 else{

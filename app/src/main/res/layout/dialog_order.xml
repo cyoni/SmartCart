@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:stretchColumns="1"
+    android:background="@drawable/frame"
+    >
+
+    <TableRow
+        android:id="@+id/t7"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Order:"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/orderID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:padding="10dp"
+            android:text="123456"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/t25">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date:"
+            android:padding="10dp"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:ems="10"
+            android:text="10/10/1010"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#8F8F8F"/>
+
+    <TableRow
+        android:id="@+id/t5"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name:"
+            android:padding="10dp"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="...."
+            android:textColor="#18235F"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/t3"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Email:"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="...."
+            android:textColor="#18235F"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/t1"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Ship to: "
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="291dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:padding="15dp"
+            android:ems="2"
+            android:focusable="false"
+            android:inputType="none"
+            android:text="Some Where Around"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+
+
+    <TableRow
+        android:id="@+id/t35"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Total:"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:padding="15dp"
+            android:text="$0.00"
+            android:textColor="#18235F"
+            android:textSize="20sp" />
+
+    </TableRow>
+
+
+
+<TableLayout
+    android:stretchColumns="0"
+    >
+    <TableRow
+        android:id="@+id/t2"
+        android:layout_marginBottom="10dp"
+        >
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#8F8F8F"/>
+
+
+    </TableRow>
+</TableLayout>
+</TableLayout>

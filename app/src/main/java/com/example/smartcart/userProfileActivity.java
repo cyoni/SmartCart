@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -47,11 +48,13 @@ public class userProfileActivity extends AppCompatActivity {
         user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
 
         // set data to fields
-        TextView userName = findViewById(R.id.name);
-        TextView email = findViewById(R.id.email);
-        TextView address = findViewById(R.id.address);
-        TextView acctype = findViewById(R.id.accType);
+        EditText userName = findViewById(R.id.name);
+        EditText email = findViewById(R.id.email);
+        EditText address = findViewById(R.id.address);
+        EditText acctype = findViewById(R.id.accType);
 
+        email.setEnabled(false);
+        acctype.setEnabled(false);
 
         userName.setText(user.getName());
         email.setText(user.getEmail());

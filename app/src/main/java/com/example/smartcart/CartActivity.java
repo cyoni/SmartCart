@@ -7,40 +7,29 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.smartcart.dialog.confirmPurchase;
+import com.example.smartcart.recycleview.recycleview_adapter_shopping;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.auth.User;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -244,9 +233,13 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
          mDatabase.child("orders").child(mAuth.getUid()).child(number+"").setValue(order).addOnCompleteListener(new OnCompleteListener <Void>() {
         @Override
         public void onComplete(@NonNull Task<Void> task) {
-            controller.toast(getApplicationContext(), "Order " + number + " is confirm. Thank you");
+            controller.toast(getApplicationContext(), "Your Order is Confirm.");
             purchase_dialog.cancel();
             Intent a = new Intent(getApplicationContext(), MainActivity.class);
+            Gson gson = new Gson();
+
+            String metaData = gson.toJson(_user); // convert metaData to JSON
+            a.putExtra("userMetaData", metaData);
             startActivity(a);
             finish();
          }

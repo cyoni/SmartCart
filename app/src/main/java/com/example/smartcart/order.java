@@ -3,30 +3,29 @@ package com.example.smartcart;
 import java.util.ArrayList;
 
 public class order {
-    private int number, totalPrice;
+    private int number;
+    private double totalPrice;
     private ArrayList<item> items;
-    private String date , address;
+    private String date , address, userId;
 
 
-    public order(int number, int totalPrice, String date, String address, ArrayList<item> items){
+    public order(int number, String userId, double totalPrice, String date, String address, ArrayList<item> items){
         this.number = number;
         this.items = items;
         this.date = date;
         this.address = address;
         this.totalPrice = totalPrice;
+        this.userId = userId;
     }
 
     public ArrayList<item>  getItems() {
     return items;
     }
 
+    public int getOrderId(){return number;}
 
-
-    public item getItem(int n) {
-        if (items.size() > n)
-            return items.get(n);
-                else
-                return null;
+    public String getId(){
+        return userId;
     }
 
     public int getNumber() {
@@ -40,7 +39,7 @@ public class order {
         return address;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return totalPrice;
     }
 }

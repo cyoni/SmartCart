@@ -1,13 +1,14 @@
-package com.example.smartcart;
+package com.example.smartcart.recycleview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.smartcart.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class recycleview_adapter_categories extends RecyclerView.Adapter<recycle
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    recycleview_adapter_categories(Context context, List<String> data) {
+    public recycleview_adapter_categories(Context context, List<String> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -38,7 +39,17 @@ public class recycleview_adapter_categories extends RecyclerView.Adapter<recycle
         String name = mData.get(position);
         holder.myTextView.setText(name);
 
+        //setAnimation(holder.itemView, position);
+
     }
+
+/*    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(1000);
+        view.startAnimation(anim);
+    }*/
+
+
 
     // total number of rows
     @Override
@@ -88,7 +99,7 @@ public class recycleview_adapter_categories extends RecyclerView.Adapter<recycle
     }
 
     // allows clicks events to be caught
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 

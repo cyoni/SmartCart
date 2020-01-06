@@ -2,7 +2,6 @@ package com.example.smartcart;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.smartcart.recycleview.recycleview_adapter_shopping;
 
 import java.util.ArrayList;
 
@@ -45,10 +46,6 @@ public class historyList extends AppCompatActivity implements recycleview_adapte
             myCartFromPast = bundle.getParcelableArrayList("my_last_items");
             setRecycleView(myCartFromPast);
         }
-
-
-
-
     }
 
 

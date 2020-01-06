@@ -3,7 +3,6 @@ package com.example.smartcart.dialog;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,18 +10,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smartcart.MainActivity;
 import com.example.smartcart.R;
 import com.example.smartcart.controller;
 import com.example.smartcart.item;
-import com.example.smartcart.recycleview_adapter_shopping;
-import com.example.smartcart.shoppingActivity;
+import com.example.smartcart.recycleview.recycleview_adapter_shopping;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,8 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import static android.app.Activity.RESULT_OK;
 
 public class search extends Dialog implements  View.OnClickListener, recycleview_adapter_shopping.ItemClickListener  {
     recycleview_adapter_shopping adapter;

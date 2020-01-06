@@ -113,7 +113,8 @@ public class menu extends AppCompatActivity {
 
 
     public void orders(View view) {
+    Intent a = new Intent(getApplicationContext(), manager_orders_Activity.class);
+    startActivity(a);
 
-        
     }
 }
