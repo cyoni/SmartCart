@@ -41,10 +41,10 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
         int orderNum = mData.get(position).getNumber();
         String orderDate = mData.get(position).getDate();
 
-        holder.myTextView.setText(orderNum+", " + orderDate);
+        holder.myTextView.setText(orderNum+"");
         holder.price.setText("₪" +mData.get(position).getPrice());
         holder.address.setText(mData.get(position).getAddress());
-
+        holder.date.setText(orderDate);
     }
 
     // total number of rows
@@ -70,11 +70,12 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
-        TextView price, address;
+        TextView price, address, date;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.NumNdate);
+            myTextView = itemView.findViewById(R.id.orderId);
+            date = itemView.findViewById(R.id.date);
             price = itemView.findViewById(R.id.price);
             address = itemView.findViewById(R.id.address);
             itemView.setOnClickListener(this);
