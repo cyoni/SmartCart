@@ -39,6 +39,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
     ArrayList<item> list;
     userBoard _user;
     confirmPurchase purchase_dialog;
+    private int _counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,22 +231,40 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         order.put("items", getItems());
         final int number  = (int)(Math.random()*((1000000)));
 
-         mDatabase.child("orders").child(mAuth.getUid()).child(number+"").setValue(order).addOnCompleteListener(new OnCompleteListener <Void>() {
+
+
+        mDatabase.child("orders").child(mAuth.getUid()).child(number+"").setValue(order).addOnCompleteListener(new OnCompleteListener <Void>() {
         @Override
         public void onComplete(@NonNull Task<Void> task) {
-            controller.toast(getApplicationContext(), "Your Order is Confirm.");
-            purchase_dialog.cancel();
-            Intent a = new Intent(getApplicationContext(), MainActivity.class);
-            Gson gson = new Gson();
 
-            String metaData = gson.toJson(_user); // convert metaData to JSON
-            a.putExtra("userMetaData", metaData);
-            startActivity(a);
-            finish();
+
+            for (int i=0; i<list.size(); i++){
+                _counter = i;
+
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("items").child(list.get(i).getCategory()).child(list.get(i).getName()).child("quantity").setValue((list.get(i).getAvailableQuantity()-list.get(i).getMyQuantity())+"").addOnCompleteListener(new OnCompleteListener <Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                if ((_counter+1) == list.size()){
+                    controller.toast(getApplicationContext(), "Your Order is Confirm.");
+                    purchase_dialog.cancel();
+                    Intent a = new Intent(getApplicationContext(), MainActivity.class);
+                    Gson gson = new Gson();
+
+                    String metaData = gson.toJson(_user); // convert metaData to JSON
+                    a.putExtra("userMetaData", metaData);
+                    startActivity(a);
+                    finish();
+
+                }
+
+                }
+            });
          }
+        }
 
          });
-
 
     }
 

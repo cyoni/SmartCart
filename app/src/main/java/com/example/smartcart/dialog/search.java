@@ -49,11 +49,11 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_search);
-       s = findViewById(R.id.search);
+        s = findViewById(R.id.search);
 
         search_list = new ArrayList<>();
 
-       getCategories();
+        getCategories();
 
 
     }
@@ -68,7 +68,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                 cat_list = new ArrayList<>();
+                cat_list = new ArrayList<>();
 
                 if (dataSnapshot.exists()){
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -77,7 +77,7 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
                     }
                     FindItems(s.getText().toString());
                     // create listener for search bar:
-                       s.addTextChangedListener(new TextWatcher() {
+                    s.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         }
@@ -88,7 +88,12 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
 
                         @Override
                         public void afterTextChanged(Editable editable) {
-                            FindItems(editable.toString());
+                            String str = editable.toString();
+                            if (str.length() != 0) {
+                                str = str.toLowerCase();
+                                str = str.substring(0, 1).toUpperCase() + str.substring(1);
+                            }
+                            FindItems(str);
                         }
                     });
 
@@ -132,12 +137,12 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
                             final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
 
 
-                          //  String q = dataMap.get("quantity") + ""; // available quantity
+                              String q = dataMap.get("quantity") + ""; // available quantity
                             String price = dataMap.get("price") + "";
                             String name = tmp.getKey() + "";
 
                             if (name.contains(find)){
-                                item tmpItem = new item(name, cat, Double.valueOf(price), 0);
+                                item tmpItem = new item(name, cat, Double.valueOf(price), 0, Integer.parseInt(q));
 
                                 // look for this item, if you have it already in myCart
 
@@ -153,10 +158,10 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
                         controller.toast(getContext(), "error 34536");
 
                 }
-                    @Override
-                    public void onCancelled (@NonNull DatabaseError databaseError){
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
 
-                    }
+                }
 
 
             });
@@ -200,6 +205,6 @@ public class search extends Dialog implements  View.OnClickListener, recycleview
     }
 
     public ArrayList<item> getItems() {
-     return adapter.getItems();
+        return adapter.getItems();
     }
 }

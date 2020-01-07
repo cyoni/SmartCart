@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/main_background"
+    android:background="@drawable/wallpaper1"
     android:layout_height="match_parent"
     tools:context=".menu"
     android:padding="5dp">
@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Smart Cart"
+        android:textColor="@color/default_1"
         android:layout_marginTop="40dp"
         android:textSize="50dp" />
 
@@ -72,8 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="About"
-        android:onClick="comingSoon"
+        android:text="Customer Service"
+        android:onClick="customerService"
         android:textAlignment="textStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

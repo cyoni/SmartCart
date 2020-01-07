@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="15487953"
-        android:textColor="#212864"
+        android:textColor="@color/default_1"
         android:textSize="20sp"
         android:textStyle="bold"
 
@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/orderId"
+        android:textColor="@color/default_1"
         android:text="$10" />
 
     <TextView
@@ -29,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:textColor="@color/default_1"
         android:textSize="15sp"
         android:layout_below="@id/orderId"
         android:text="1/1/2020" />
@@ -38,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/price"
+        android:textColor="@color/default_1"
         android:textStyle="italic"
         android:text="..........." />
 </RelativeLayout>

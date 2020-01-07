@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -100,9 +101,6 @@ public class menu extends AppCompatActivity {
         finish();
     }
 
-    public void comingSoon(View view) {
-        controller.toast(this, "Coming soon");
-    }
 
     public void addItem(View view) {
           Intent a = new Intent(this, addItemActivity.class);
@@ -116,5 +114,11 @@ public class menu extends AppCompatActivity {
     Intent a = new Intent(getApplicationContext(), manager_orders_Activity.class);
     startActivity(a);
 
+    }
+
+    public void customerService(View view) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:1800202020"));
+        startActivity(intent);
     }
 }

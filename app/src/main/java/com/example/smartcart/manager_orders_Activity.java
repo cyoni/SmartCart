@@ -73,10 +73,7 @@ public class manager_orders_Activity extends AppCompatActivity implements recycl
                     for (DataSnapshot Order : dataSnapshot.getChildren()) {
                             String userId = Order.getKey();
                         for (DataSnapshot tmp : Order.getChildren()) {
-
-
                             final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
-                            System.out.println(userId+ " !");
                             String items = dataMap.get("items").toString();
                             String date = dataMap.get("date").toString();
                             String address = dataMap.get("address").toString();
@@ -89,7 +86,7 @@ public class manager_orders_Activity extends AppCompatActivity implements recycl
                                 for (int i = 0; i < my_items.length; i++) {
                                     String item[] = my_items[i].split(",");
                                     total += Double.parseDouble(item[4]);
-                                    item tmpItem = new item(item[1], item[0], Double.parseDouble(item[3]), Integer.parseInt(item[2]));
+                                    item tmpItem = new item(item[1], item[0], Double.parseDouble(item[3]), Integer.parseInt(item[2]), 1000);
                                     tmp_items.add(tmpItem);
                                 }
                                 list.add(new order(Integer.parseInt(tmp.getKey()), userId, total ,date, address, tmp_items));

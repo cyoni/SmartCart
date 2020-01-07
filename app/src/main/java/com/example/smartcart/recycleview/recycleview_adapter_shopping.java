@@ -1,6 +1,8 @@
 package com.example.smartcart.recycleview;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +56,15 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         holder.price.setText(mData.get(position).setPrice());
         holder.q.setText(my_q+"");
 
+      if (mData.get(position).getAvailableQuantity() <= 0){
+            holder.myTextView.setPaintFlags(holder.myTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+          //  holder.myTextView.setTypeface(null, Typeface.ITALIC);
+            holder.b1.setEnabled(false);
+            holder.b2.setEnabled(false);
+        }
+
         if (what.equals("SEARCH")){ holder.myTextView.setTextSize(25); holder.myTextView.setWidth(300);}
-
-        setFadeAnimation(holder.myTextView);
-
+         setFadeAnimation(holder.myTextView);
     }
        private void setFadeAnimation(View view) {
             AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);

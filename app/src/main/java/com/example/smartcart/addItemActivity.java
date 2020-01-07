@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.auth.User;
 import com.kusu.loadingbutton.LoadingButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -35,6 +37,7 @@ public class addItemActivity extends AppCompatActivity {
     private Vector<String> cat_List;
     private Vector<String> items_List;
     private CheckBox del;
+    private int sizeOfItems = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,54 +68,54 @@ public class addItemActivity extends AppCompatActivity {
     }
 
     private void getItem(String cat, String str) {
-     //   try{
+        //   try{
 
         if (str.trim().length() == 0) return;
-            DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-            mDatabase.child("items").child(cat.trim()).child(str.trim()).addListenerForSingleValueEvent(new ValueEventListener() { // items -> category -> item
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("items").child(cat.trim()).child(str.trim()).addListenerForSingleValueEvent(new ValueEventListener() { // items -> category -> item
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
 
-                        final HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
-                        String price = String.valueOf(dataMap.get("price"));
-                        String quantity = String.valueOf(dataMap.get("quantity"));
+                    final HashMap<String, Object> dataMap = (HashMap<String, Object>) dataSnapshot.getValue();
+                    String price = String.valueOf(dataMap.get("price"));
+                    String quantity = String.valueOf(dataMap.get("quantity"));
 
-                        TextView p = findViewById(R.id.price);
-                        TextView q = findViewById(R.id.quantity);
+                    TextView p = findViewById(R.id.price);
+                    TextView q = findViewById(R.id.quantity);
 
 
-                        p.setText(price);
-                        q.setText(quantity);
-                        del.setEnabled(true);
-                    }
-                    else{
-                        del.setEnabled(false);
-                    }
+                    p.setText(price);
+                    q.setText(quantity);
+                    del.setEnabled(true);
+                } else {
+                    del.setEnabled(false);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
+            }
 
-     //   }
-      //  catch (Exception e){}
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+        //   }
+        //  catch (Exception e){}
     }
 
-    private  void LookForWords(String str){
-        try{
+    private void LookForWords(String str) {
+        try {
             if (str.trim().length() == 0) return;
 
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("items").child(str.trim()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()){
+                    if (dataSnapshot.exists()) {
                         items_List.clear();
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                          items_List.add(ds.getKey());
+                            items_List.add(ds.getKey());
                         }
-
+                        sizeOfItems = items_List.size();
                         setList(R.id.nameOfItem, items_List);
                         AutoCompleteTextView n = findViewById(R.id.nameOfItem);
                         n.requestFocus();
@@ -120,19 +123,20 @@ public class addItemActivity extends AppCompatActivity {
 
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
 
+        } catch (Exception e) {
         }
-        catch (Exception e){}
     }
 
     private void startTextListener() {
 
-        final AutoCompleteTextView cat_txt =  findViewById(R.id.cat);// listener for category
-        final AutoCompleteTextView name_txt =  findViewById(R.id.nameOfItem); // listener for product name
+        final AutoCompleteTextView cat_txt = findViewById(R.id.cat);// listener for category
+        final AutoCompleteTextView name_txt = findViewById(R.id.nameOfItem); // listener for product name
 
         cat_txt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,41 +152,43 @@ public class addItemActivity extends AppCompatActivity {
             }
         });
 
-            cat_txt.addTextChangedListener(new TextWatcher() {
+        cat_txt.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 LookForWords(cat_txt.getText().toString());
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
 
         name_txt.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 getItem(cat_txt.getText().toString(), name_txt.getText().toString());
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
         });
-
-
 
 
     }
 
 
+    private void setList(int v, Vector<String> list) {
 
-
-    private void setList(int v, Vector<String> list){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1 , list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, list);
         AutoCompleteTextView textView = findViewById(v);
 
         textView.setAdapter(adapter);
         textView.showDropDown();
     }
-
-
 
 
     private void getCatList() {
@@ -191,7 +197,7 @@ public class addItemActivity extends AppCompatActivity {
         mDatabase.child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     cat_List.clear();
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         String buttonName = ds.getKey();
@@ -201,6 +207,7 @@ public class addItemActivity extends AppCompatActivity {
                     setList(R.id.cat, cat_List);
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -235,13 +242,16 @@ public class addItemActivity extends AppCompatActivity {
             return;
         }
         cat = cat.toLowerCase();
-        cat = cat.substring(0,1).toUpperCase() + cat.substring(1);
+        cat = cat.substring(0, 1).toUpperCase() + cat.substring(1);
 
-        if (del.isChecked()){
+        if (del.isChecked()) {
             mDatabase.child("items").child(cat).child(name).removeValue();
+            if (sizeOfItems == 1){
+                mDatabase.child("categories").child(cat).removeValue();
+                sizeOfItems=0;}
+
             controller.toast(this, "success!");
-        }
-        else {
+        } else {
 
 
             Button submit = findViewById(R.id.submit);
@@ -253,8 +263,7 @@ public class addItemActivity extends AppCompatActivity {
             newItem.put("quantity", Integer.valueOf(quantity));
 
             name = name.toLowerCase();
-            name = name.substring(0,1).toUpperCase() + name.substring(1);
-
+            name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
             mDatabase.child("items").child(cat).child(name).setValue(newItem);
             mDatabase.child("categories").child(cat).setValue(cat);
@@ -264,8 +273,6 @@ public class addItemActivity extends AppCompatActivity {
 
             loadingButton = (LoadingButton) submit;
             loadingButton.hideLoading();
-
-
         }
 
         t_name.setText("");
@@ -275,6 +282,5 @@ public class addItemActivity extends AppCompatActivity {
         del.setChecked(false);
         del.setEnabled(false);
     }
-
 
 }

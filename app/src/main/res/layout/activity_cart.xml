@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/wallpaper1"
     android:orientation="vertical"
 
     tools:context=".CartActivity">
@@ -14,8 +14,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:background="#FFFFFF" />
+        android:layout_marginBottom="80dp" />
 
     <Button
         android:id="@+id/buy"
@@ -36,7 +35,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="55dp"
         android:text="Subtotal: 0"
-        android:textColor="@color/Black"
+        android:textColor="@color/default_1"
         android:textSize="20sp"
         android:textStyle="bold" />
 

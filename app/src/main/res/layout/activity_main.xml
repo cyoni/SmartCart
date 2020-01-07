@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/main_background"
+    android:background="@drawable/wallpaper1"
     android:padding="5dp">
-
 
 
     <TextView
@@ -16,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Welcome!  "
+        android:textColor="@color/default_1"
         android:textSize="50dp" />
 
     <TextView
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_below="@id/textView2"
+        android:textColor="@color/default_1"
         android:text="What would you like to buy today? "
         android:textSize="30sp" />
 
@@ -42,7 +43,7 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:onClick="lastShopping"
         android:layout_alignParentBottom="true"
 

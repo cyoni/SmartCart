@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class item  implements Parcelable {
     String name, category;
     double price;
-    int myQuantity=0;
+    private int myQuantity=0, availableQuantity;
     ArrayList<item> items;
 
 
@@ -21,9 +21,10 @@ public class item  implements Parcelable {
         this.price = price;
     }
 
-    public item(String name, String category, double price, int q){
+    public item(String name, String category, double price, int my_Quantity, int availableQuantity){
         this(name, price);
-        this.myQuantity = q;
+        this.availableQuantity = availableQuantity;
+        this.myQuantity = my_Quantity;
         this.category = category;
     }
 
@@ -36,6 +37,7 @@ public class item  implements Parcelable {
         category = in.readString();
         price = in.readDouble();
         myQuantity = in.readInt();
+        availableQuantity = in.readInt();
     }
 
     public int getSize(){
@@ -97,11 +99,16 @@ public class item  implements Parcelable {
         parcel.writeString(category);
         parcel.writeDouble(price);
         parcel.writeInt(myQuantity);
+        parcel.writeInt(availableQuantity);
     }
 
     public String setPrice() {
         if (myQuantity <= 1) return "₪" + price;
         return "₪" + price + "x" + myQuantity + "=₪" + price*myQuantity;
+    }
+
+    public int getAvailableQuantity(){
+        return availableQuantity;
     }
 
 }

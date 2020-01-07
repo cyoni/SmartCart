@@ -105,7 +105,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                     while (a.hasNext()) {
                         tmp = a.next();
                         final HashMap<String, Object> dataMap = (HashMap<String, Object>) tmp.getValue();
-                      //  String q = dataMap.get("quantity")+""; // available quantity
+                        String q = dataMap.get("quantity")+""; // available quantity
                         String price = dataMap.get("price")+"";
                         String name = tmp.getKey()+"";
 
@@ -115,7 +115,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
                                  list.add(tmpItem);
                             }
                             else{ // otherwise
-                               tmpItem = new item(name, cat, Double.valueOf(price), 0);
+                               tmpItem = new item(name, cat, Double.valueOf(price), 0, Integer.parseInt(q));
                                list.add(tmpItem);
                         }
                     }
@@ -162,7 +162,6 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
     @Override
     public void onItemClick(View view, int position) {
-       // Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
 
