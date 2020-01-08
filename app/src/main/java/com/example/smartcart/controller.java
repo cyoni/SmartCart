@@ -1,9 +1,14 @@
 package com.example.smartcart;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -67,6 +72,28 @@ public class controller {
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("cart").child(mAuth.getCurrentUser().getUid()).setValue(splitCart(controller.convertToArraylist(myCart)));
         }
+    }
+
+    public static void notification(Context context ,String title, String msg) {
+        int notificationId = 123;
+        final String CHANNEL_ID = "CHANNEL_ID";
+
+
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.back_button)
+                .setContentTitle(title)
+                .setContentText(msg)
+              //  .setStyle(new NotificationCompat.BigTextStyle()
+              //      .bigText("Much longer text that cannot fit one line..."))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.notify(notificationId, builder.build());
     }
 
 

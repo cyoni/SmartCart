@@ -23,8 +23,12 @@ import com.example.smartcart.dialog.search;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
@@ -32,9 +36,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     userBoard _user = null;
     private ArrayList<item> myCart;
     search s;
-    private static final String CHANNEL_ID = "CHANNEL_ID";
 
 
     public static Context contextOfApplication;
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         myCart = new ArrayList<>();
         contextOfApplication = getApplicationContext();
+        mAuth = FirebaseAuth.getInstance();
 
         // set action bar:
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -91,6 +97,36 @@ public class MainActivity extends AppCompatActivity {
 
             _user = gson.fromJson(a.getStringExtra("userMetaData"), userBoard.class);
             getCart(a);
+
+
+            listenToDataBase();
+    }
+
+    private void listenToDataBase() {
+
+        if (mAuth.getCurrentUser() == null) return;
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("notifications").child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.exists()){
+
+                    controller.notification(getApplicationContext(), "Smart Cart", dataSnapshot.getValue()+"");
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("notifications").child(mAuth.getCurrentUser().getUid()).removeValue();
+
+
+                }
+
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
     }
 
@@ -167,11 +203,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void shoppingActivity(View view) {
-       // if (FirebaseAuth.getInstance().getCurrentUser() == null){
-         //   Intent a = new Intent(this, LoginActivity.class);
-           // startActivity(a);
-        //}
-        //else {
             Gson gson = new Gson();
             String metaData = gson.toJson(_user); // convert metaData to JSON
             Intent a = new Intent(getApplicationContext(), shoppingActivity.class);
@@ -183,18 +214,5 @@ public class MainActivity extends AppCompatActivity {
         //}
     }
 
-    public void xxxx(View view) {
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentText("hi")
-                .build();
-
-
-      //  NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-        //        .setSmallIcon(R.drawable.back_button)
-          //      .setContentTitle("hello")
-            //    .setContentText("how u doing")
-              //  .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                //.build();
-    }
 }
