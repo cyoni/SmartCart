@@ -17,6 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_span="2"
+                android:textColor="@color/default_1"
                 android:gravity="center_horizontal"
                 android:text="Manager Sign Up"
                 android:textSize="25sp"
@@ -31,6 +32,7 @@
                 android:layout_column="0"
                 android:layout_marginLeft="10dp"
                 android:text="Name: "
+                android:textColor="@color/default_1"
                 android:textSize="16sp" />
             <EditText
                 android:id="@+id/name"
@@ -51,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/default_1"
                 android:text="Email:"
                 android:textSize="16sp" />
             <EditText
@@ -71,6 +74,7 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:textColor="@color/default_1"
                 android:layout_marginLeft="10dp"
                 android:text="Password:"
 
@@ -97,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/default_1"
                 android:text="Address:"
                 android:textSize="16sp" />
             <EditText

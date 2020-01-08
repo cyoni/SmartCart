@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,9 @@ public class myAccountActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
 
 
         Gson gson = new Gson(); // get user object

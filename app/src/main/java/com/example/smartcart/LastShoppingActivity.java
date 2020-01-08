@@ -63,7 +63,7 @@ public class LastShoppingActivity extends AppCompatActivity implements recyclevi
 
         mAuth = FirebaseAuth.getInstance();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("orders").child(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("orders").child(mAuth.getUid()).orderByChild("date").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

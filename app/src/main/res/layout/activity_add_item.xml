@@ -7,6 +7,7 @@
     tools:context=".addItemActivity"
     android:orientation="vertical"
     android:stretchColumns="1"
+    android:background="@drawable/wallpaper1"
     >
 
 
@@ -17,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:textColor="@color/default_1"
             android:text="Add/Update item"
             android:textSize="40dp" />
 
@@ -32,15 +34,16 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Category: "
+            android:textColor="@color/default_1"
             android:textSize="20sp" />
 
         <AutoCompleteTextView
             android:id="@+id/cat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/default_1"
             android:completionThreshold="1"/>
-
-
 
 
     </TableRow>
@@ -52,10 +55,13 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Name: "
+            android:textColor="@color/default_1"
             android:textSize="20sp" />
 
         <AutoCompleteTextView
             android:id="@+id/nameOfItem"
+            android:textColor="@color/default_1"
+            android:backgroundTint="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -72,6 +78,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Price:"
+            android:textColor="@color/default_1"
             android:textSize="20sp" />
 
 
@@ -80,6 +87,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
+            android:textColor="@color/default_1"
+            android:backgroundTint="@color/colorAccent"
             android:padding="15dp"
              />
 
@@ -94,6 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:textColor="@color/default_1"
             android:text="Available quantity:"
             android:textSize="20sp" />
 
@@ -102,6 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:textColor="@color/default_1"
+            android:backgroundTint="@color/colorAccent"
             android:inputType="numberSigned"
             />
 

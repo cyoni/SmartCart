@@ -53,12 +53,16 @@ public class userProfileActivity extends AppCompatActivity {
         View view =getSupportActionBar().getCustomView();
         ImageView img = view.findViewById(R.id.image_action);
 
+
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
 
 
         Gson gson = new Gson(); // get user object

@@ -3,6 +3,7 @@ package com.example.smartcart;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -50,7 +51,8 @@ public class manager_orders_Activity extends AppCompatActivity implements recycl
             }
         });
 
-
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
 
         list = new ArrayList<>();
         getOrderList();

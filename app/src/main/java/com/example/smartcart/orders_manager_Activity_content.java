@@ -54,6 +54,8 @@ public class orders_manager_Activity_content extends AppCompatActivity  implemen
             }
         });
 
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
 
         myCartFromPast = new ArrayList<>();
 

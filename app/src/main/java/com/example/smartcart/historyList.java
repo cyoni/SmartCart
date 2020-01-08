@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.smartcart.recycleview.recycleview_adapter_shopping;
@@ -37,6 +38,9 @@ public class historyList extends AppCompatActivity implements recycleview_adapte
             }
         });
 
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
+
         myCartFromPast = new ArrayList<>();
 
         Intent a = getIntent();
@@ -57,9 +61,6 @@ public class historyList extends AppCompatActivity implements recycleview_adapte
         adapter = new recycleview_adapter_shopping(this, items_list, "history");
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-
-      // recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
-
 
     }
     @Override

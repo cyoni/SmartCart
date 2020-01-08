@@ -63,6 +63,9 @@ public class addItemActivity extends AppCompatActivity {
         });
         mAuth = FirebaseAuth.getInstance();
 
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
+
         startTextListener();
         getCatList();
     }

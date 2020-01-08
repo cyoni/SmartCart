@@ -55,6 +55,9 @@ public class menu extends AppCompatActivity {
         });
 
 
+        EditText search = findViewById(R.id.search);
+        search.setVisibility(View.INVISIBLE);
+
         Gson gson = new Gson();
         user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
 
@@ -122,7 +125,10 @@ public class menu extends AppCompatActivity {
     }
 
 
-    public void orders(View view) {}
+    public void orders(View view) {
+        Intent a = new Intent(getApplicationContext(), manager_orders_Activity.class);
+        startActivity(a);
+    }
 
     public void customerService(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
