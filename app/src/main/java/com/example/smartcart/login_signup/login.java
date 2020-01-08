@@ -136,14 +136,10 @@ public class login extends Fragment {
 
     private void sendData(String s){
         controller.toast(getContext(), "Welcome back " + _user.getEmail());
-
         Intent a = new Intent(getActivity() , MainActivity.class);
         a.putExtra("userMetaData", s);
         startActivity(a);
-
-
         getActivity().finish();
-
     }
 
     private void showKeyboard(View what) {

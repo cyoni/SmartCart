@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -83,10 +89,27 @@ public class userProfileActivity extends AppCompatActivity {
         User.put("name", userName.getText().toString());
         User.put("address", address.getText().toString());
         User.put("email", email.getText().toString());
-        User.put("accountType", user.getAccountType()); ff
+        User.put("accountType", user.isManager() ? "1" : "0");
 
-        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).setValue(User); // Post data to the fire-base
-        controller.toast(this, "Ok!");
+        mDatabase.child("users").child(mAuth.getCurrentUser().getUid()).setValue(User).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                controller.toast(getApplicationContext(), "Ok!");
+                userBoard _user = user;
+                _user.setName(userName.getText().toString());
+                _user.setAddress(address.getText().toString());
+
+
+                Gson gson = new Gson();
+                String metaData = gson.toJson(_user);
+                Intent a = new Intent(getApplicationContext() , MainActivity.class);
+                a.putExtra("userMetaData", metaData);
+                startActivity(a);
+                finish();
+            }
+        }); // Post data to the fire-base
 
     }
 }

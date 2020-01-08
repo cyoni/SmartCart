@@ -74,8 +74,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+         Intent a = getIntent();
          Gson gson = new Gson(); // set user Data
-        _user = gson.fromJson(getIntent().getStringExtra("userMetaData"), userBoard.class);
+
+            _user = gson.fromJson(a.getStringExtra("userMetaData"), userBoard.class);
+            getCart(a);
 
     }
 
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson(); // set user Data
         _user = gson.fromJson(intent .getStringExtra("userMetaData"), userBoard.class);
         setIntent(intent);
+        myCart.clear();
     }
 
     public static Context getContextOfApplication(){
@@ -125,19 +129,22 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                Bundle bundle = data.getExtras();
-
-                if (bundle != null) {
-                    myCart = bundle.getParcelableArrayList("restore_items");
-                }
+            getCart(data);
             }
+        }
+    }
+
+    private void getCart(Intent data) {
+        Bundle bundle = data.getExtras();
+        if (bundle != null) {
+            myCart = bundle.getParcelableArrayList("restore_items");
         }
     }
 
 
     public void lastShopping(View view)
     {
-        if (_user == null){
+        if (_user == null || FirebaseAuth.getInstance().getCurrentUser() == null){
             Intent s = new Intent(this, LoginActivity.class);
             startActivity(s);
         }
@@ -147,17 +154,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void shoppingActivity(View view) {
-
-        Gson gson = new Gson();
-        String metaData = gson.toJson(_user); // convert metaData to JSON
-        Intent a = new Intent(getApplicationContext() , shoppingActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("restore_items", myCart);
-        a.putExtra("userMetaData", metaData);
-        a.putExtras(bundle);
-        startActivityForResult(a, 1);
-
+       // if (FirebaseAuth.getInstance().getCurrentUser() == null){
+         //   Intent a = new Intent(this, LoginActivity.class);
+           // startActivity(a);
+        //}
+        //else {
+            Gson gson = new Gson();
+            String metaData = gson.toJson(_user); // convert metaData to JSON
+            Intent a = new Intent(getApplicationContext(), shoppingActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("restore_items", myCart);
+            a.putExtra("userMetaData", metaData);
+            a.putExtras(bundle);
+            startActivityForResult(a, 1);
+        //}
     }
-
 
 }

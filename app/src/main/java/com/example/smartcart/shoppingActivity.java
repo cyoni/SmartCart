@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.example.smartcart.recycleview.recycleview_adapter_categories;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -198,10 +199,15 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
                 if (list.get(i).getMyQuantity() == -1) { myCart.remove(list.get(i).getName());}
                 else myCart.put(list.get(i).getName(), list.get(i));
             }
+
+            ////// Save cart into firebase
+                controller.updateCartOnline(myCart);
+            //////
         }
         else{
             controller.toast(this, "error 32452");
         }
+
         updateNum(myCart.size());
     }
 

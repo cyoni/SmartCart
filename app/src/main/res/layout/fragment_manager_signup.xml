@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Black"
     tools:context=".login_signup.login">
 
 
@@ -35,6 +36,8 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/default_1"
                 android:ems="10"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -54,6 +57,8 @@
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/default_1"
                 android:ems="10"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -75,6 +80,8 @@
                 android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/default_1"
+                android:backgroundTint="@color/colorAccent"
                 android:ems="10"
                 android:inputType="textPassword" />
 
@@ -96,6 +103,8 @@
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/default_1"
+                android:backgroundTint="@color/colorAccent"
                 android:ems="10"
                 android:inputType="textPersonName" />
         </TableRow>
@@ -118,6 +127,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="5dp"
+                android:backgroundTint="#7E7676"
                 android:layout_span="2"
                 android:text="Sign up"
                 android:textColor="@color/white" />

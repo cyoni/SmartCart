@@ -101,6 +101,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
             bundle.putParcelableArrayList("items", list);
             intent.putExtras(bundle);
             setResult(RESULT_OK, intent);
+            controller.updateCartOnline(controller.convertToHashmap(list));
         }
         finish();
     }
@@ -117,10 +118,8 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
             //Remove swiped item from list and notify the RecyclerView
-
             int position = viewHolder.getAdapterPosition();
             list.remove(position);
-
             adapter.notifyDataSetChanged();
             setSubTotal();
         }
@@ -269,12 +268,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
     }
 
     private String getItems() {
-        String items = "";
-        for (int i=0; i<list.size(); i++){
-            item tmp = list.get(i);
-            items += tmp.getCategory() + "," + tmp.getName() + "," + tmp.getMyQuantity() + "," + tmp.getPrice() + "," + tmp.getMyQuantity()*tmp.getPrice() + ";";
-        }
-        return items;
+        return controller.splitCart(list);
     }
 
     public void back(View view) {

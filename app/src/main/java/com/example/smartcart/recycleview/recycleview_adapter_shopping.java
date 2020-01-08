@@ -56,6 +56,8 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         holder.price.setText(mData.get(position).setPrice());
         holder.q.setText(my_q+"");
 
+        if (holder.myTextView.length() > 10) holder.myTextView.setTextSize(25);
+
       if (mData.get(position).getAvailableQuantity() <= 0){
             holder.myTextView.setPaintFlags(holder.myTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
           //  holder.myTextView.setTypeface(null, Typeface.ITALIC);
@@ -64,11 +66,16 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         }
 
         if (what.equals("SEARCH")){ holder.myTextView.setTextSize(25); holder.myTextView.setWidth(300);}
+
+
         setFadeAnimation(holder.myTextView);
         setFadeAnimation(holder.price);
         setFadeAnimation(holder.q);
-        setFadeAnimation(holder.b1);
-        setFadeAnimation(holder.b2);
+
+        if (!what.equals("history")) {
+            setFadeAnimation(holder.b1);
+            setFadeAnimation(holder.b2);
+        }
 
     }
        private void setFadeAnimation(View view) {
