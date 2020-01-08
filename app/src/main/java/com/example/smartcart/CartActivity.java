@@ -75,7 +75,7 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
 
             @Override
             public void afterTextChanged(Editable editable) {
-                filterList(editable.toString());
+                filterList(controller.makeUpperLetter(editable.toString()));
             }
         });
 

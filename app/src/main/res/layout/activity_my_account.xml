@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/main_background"
+    android:background="@drawable/wallpaper1"
     android:layout_height="match_parent"
     tools:context=".myAccountActivity"
     android:padding="5dp">
@@ -14,6 +14,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/default_1"
         android:layout_marginTop="30dp"
         android:text="My Account"
         android:textSize="50dp" />

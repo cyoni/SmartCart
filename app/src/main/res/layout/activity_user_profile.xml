@@ -7,6 +7,7 @@
         tools:context=".userProfileActivity"
         android:orientation="vertical"
         android:stretchColumns="1"
+        android:background="@drawable/wallpaper1"
         >
 
 
@@ -18,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:text="My Profile"
+                android:textColor="@color/default_1"
                 android:textSize="50dp" />
 
         </TableRow>
@@ -33,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:text="Name: "
+                android:textColor="@color/default_1"
                 android:textSize="20sp" />
 
             <EditText
@@ -40,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textColor="@color/default_1"
                 android:inputType="textPersonName"
                 android:text="Name " />
 
@@ -56,6 +60,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Email:"
+            android:textColor="@color/default_1"
             android:textSize="20sp" />
 
         <EditText
@@ -64,6 +69,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:textColor="@color/default_1"
             android:text="Name" />
 
 
@@ -77,12 +83,14 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:text="Address:"
+            android:textColor="@color/default_1"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/default_1"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name" />
@@ -98,6 +106,7 @@
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:textColor="@color/default_1"
             android:text="Account Type: "
             android:textSize="20sp" />
 
@@ -106,6 +115,7 @@
             android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textColor="@color/default_1"
             android:inputType="textPersonName"
             android:text="Name" />
 
@@ -123,7 +133,9 @@
         <Button
             android:id="@+id/update"
             android:layout_width="match_parent"
+            android:textColor="@color/default_1"
             android:layout_height="wrap_content"
+            android:onClick="update"
             android:text="Update Account" />
 
 

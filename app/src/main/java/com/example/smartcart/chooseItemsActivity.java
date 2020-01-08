@@ -75,7 +75,7 @@ public class chooseItemsActivity extends AppCompatActivity implements recyclevie
 
             @Override
             public void afterTextChanged(Editable editable) {
-                 filterList(editable.toString());
+                 filterList(controller.makeUpperLetter(editable.toString()));
             }
         });
 

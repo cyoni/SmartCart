@@ -80,7 +80,7 @@ public class shoppingActivity extends AppCompatActivity implements recycleview_a
 
             @Override
             public void afterTextChanged(Editable editable) {
-                    filterCat(editable.toString());
+                    filterCat(controller.makeUpperLetter(editable.toString()));
             }
         });
 

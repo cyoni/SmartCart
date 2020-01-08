@@ -64,7 +64,12 @@ public class recycleview_adapter_shopping extends RecyclerView.Adapter<recyclevi
         }
 
         if (what.equals("SEARCH")){ holder.myTextView.setTextSize(25); holder.myTextView.setWidth(300);}
-         setFadeAnimation(holder.myTextView);
+        setFadeAnimation(holder.myTextView);
+        setFadeAnimation(holder.price);
+        setFadeAnimation(holder.q);
+        setFadeAnimation(holder.b1);
+        setFadeAnimation(holder.b2);
+
     }
        private void setFadeAnimation(View view) {
             AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);

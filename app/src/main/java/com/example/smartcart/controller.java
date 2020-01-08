@@ -39,6 +39,14 @@ public class controller {
 
     // This is the Notification Channel ID. More about this in the next section
     public static final String NOTIFICATION_CHANNEL_ID = "channel_id";
+
+    public static String makeUpperLetter(String str) {
+        if (str.length() != 0) {
+            str = str.toLowerCase();
+            return str.substring(0, 1).toUpperCase() + str.substring(1);
+        }
+        return "";
+    }
     //Notification Channel ID passed as a parameter here will be ignored for all the Android versions below 8.0
 
 

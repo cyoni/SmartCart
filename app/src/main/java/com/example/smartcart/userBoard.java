@@ -6,9 +6,6 @@ import java.util.HashMap;
 public class userBoard {
     private String accountType;
     private String name, email, address;
-
-    private String storeName, storeAddress;
-    private int storeID;
     private HashMap<String,String> hm=new HashMap<>();
 
     public userBoard(){}
@@ -19,23 +16,6 @@ public class userBoard {
         this.email =  email;
         this.address = address;
     }
-
-    public userBoard(String accountType, String name, String email, String address, String storeAddress, int storeID, String storeName){
-        this(accountType, name, email, address);
-        this.storeAddress = storeAddress;
-        this.storeID = storeID;
-        this.storeName = storeName;
-    }
-
-    public userBoard(userBoard u){
-        this.name = u.name;
-        this.email = u.email;
-        this.address = u.address;
-        this.hm = new HashMap<String,String>(u.hm);
-
-
-    }
-
 
     // getters:
 
@@ -61,20 +41,6 @@ public class userBoard {
         return address;
     }
 
-    // manager:
-    public String storeName() {
-        return storeName;
-    }
-
-    public String storeAddress() {
-        return storeAddress;
-    }
-
-    public int storeID() {
-        return storeID;
-    }
-
-    public HashMap<String,String> getHashMap() { return hm;}
 
 
 }

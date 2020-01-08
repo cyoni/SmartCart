@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-            openSearch(editable.toString());
+            openSearch(controller.makeUpperLetter(editable.toString()));
             }
         });
 

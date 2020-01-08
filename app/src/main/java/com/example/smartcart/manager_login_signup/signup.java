@@ -39,14 +39,14 @@ public class signup extends Fragment {
     private FirebaseAuth mAuth;
     private View root;
     private Button signup_button;
-    private String username="",email="",password="",address="", storeId="", storeAddress="", nameOfStore="";
+    private String username="",email="",password="",address="";
 
     private userBoard _user;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_manager_signup, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-        signup_button = (Button)root.findViewById(R.id.signup_button);
+        signup_button = root.findViewById(R.id.signup_button);
 
         signup_button.setOnClickListener(
                 new View.OnClickListener()
@@ -56,27 +56,19 @@ public class signup extends Fragment {
                         EditText txt_name = root.findViewById(R.id.name);
                         EditText txt_email = root.findViewById(R.id.email);
                         EditText txt_password = root.findViewById(R.id.password);
-                        EditText txt_storeID= root.findViewById(R.id.storeId);
                         EditText txt_address = root.findViewById(R.id.address);
-                        EditText txt_storeAddress = root.findViewById(R.id.storeAddress);
-                        EditText txt_storeName = root.findViewById(R.id.storeName);
+
 
                         username = txt_name.getText().toString().trim();
                         email = txt_email.getText().toString().trim();
                         password = txt_password.getText().toString().trim();
                         address = txt_address.getText().toString().trim();
-                        storeId = txt_storeID.getText().toString().trim();
-                        storeAddress = txt_storeAddress.getText().toString().trim();
-                        nameOfStore = txt_storeName.getText().toString().trim();
 
 
                         if (username.length() == 0) {controller.toast(getContext(),"Enter your name");txt_name.requestFocus();  showKeyboard(txt_name);}
                         else if (email.length() == 0) {controller.toast(getContext(),"Enter your email"); txt_email.requestFocus();showKeyboard(txt_email);}
                         else if (password.length() == 0) {controller.toast(getContext(), "Choose a password"); txt_password.requestFocus();showKeyboard(txt_password);}
                         else if (address.length() == 0) {controller.toast(getContext(), "Enter your address"); showKeyboard(txt_address);}
-                        else if (storeId.length() == 0) {controller.toast(getContext(), "Enter your store ID"); showKeyboard(txt_storeID);}
-                        else if (storeAddress.length() == 0) {controller.toast(getContext(), "Enter your store address"); showKeyboard(txt_storeAddress);}
-                        else if (nameOfStore.length() == 0) {controller.toast(getContext(), "Enter your store name"); showKeyboard(txt_storeName);}
                         else{
                             signup_button.setEnabled(false);
                             LoadingButton loadingButton = (LoadingButton) signup_button; loadingButton.showLoading();
@@ -144,12 +136,9 @@ public class signup extends Fragment {
         User.put("name", username);
         User.put("address", address);
         User.put("email", email);
-        User.put("storeID", storeId);
-        User.put("storeAddress", storeAddress);
-        User.put("nameOfStore", nameOfStore);
         User.put("accountType", "1");
         mDatabase.child("users").child(user.getUid()).setValue(User); // Post data to the fire-base
-       userBoard u = new userBoard("1",  username,  email,  address,  storeAddress,  Integer.parseInt(storeId),  nameOfStore);
+       userBoard u = new userBoard("1",  username,  email,  address);
 
     }
 
