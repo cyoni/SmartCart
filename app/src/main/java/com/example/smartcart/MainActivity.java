@@ -1,5 +1,8 @@
 package com.example.smartcart;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
@@ -8,20 +11,27 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.smartcart.dialog.search;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import java.util.ArrayList;
 
@@ -33,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     userBoard _user = null;
     private ArrayList<item> myCart;
     search s;
+    private static final String CHANNEL_ID = "CHANNEL_ID";
+
 
     public static Context contextOfApplication;
 
@@ -134,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void getCart(Intent data) {
         Bundle bundle = data.getExtras();
         if (bundle != null) {
@@ -170,4 +183,18 @@ public class MainActivity extends AppCompatActivity {
         //}
     }
 
+    public void xxxx(View view) {
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentText("hi")
+                .build();
+
+
+      //  NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        //        .setSmallIcon(R.drawable.back_button)
+          //      .setContentTitle("hello")
+            //    .setContentText("how u doing")
+              //  .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                //.build();
+    }
 }
