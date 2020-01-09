@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void listenToDataBase() {
-
+        mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) return;
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (dataSnapshot.exists()){
 
-                    controller.notification(getApplicationContext(), "Smart Cart", dataSnapshot.getValue()+"");
+                    controller.notification(getApplicationContext(), "New message", dataSnapshot.getValue()+"");
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                     mDatabase.child("notifications").child(mAuth.getCurrentUser().getUid()).removeValue();
 

@@ -79,7 +79,7 @@ public class controller {
         final String CHANNEL_ID = "CHANNEL_ID";
 
 
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, welcomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
