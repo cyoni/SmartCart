@@ -132,7 +132,7 @@ public class menu extends AppCompatActivity {
 
     public void customerService(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:1800202020"));
+        intent.setData(Uri.parse("tel:18002020205"));
         startActivity(intent);
 
     }

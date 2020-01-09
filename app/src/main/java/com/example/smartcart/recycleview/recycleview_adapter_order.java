@@ -56,6 +56,9 @@ public class recycleview_adapter_order extends RecyclerView.Adapter<recycleview_
         holder.date.setText(orderDate);
 
         setFadeAnimation(holder.myTextView);
+        setFadeAnimation(holder.price);
+        setFadeAnimation(holder.address);
+        setFadeAnimation(holder.date);
 
     }
 
