@@ -1,5 +1,5 @@
 # SmartCart
 
-  <img src="cart.png" width="256" height="455">
+  <img src="cart.png" height="455">
 
 
