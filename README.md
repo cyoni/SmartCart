@@ -1,5 +1,10 @@
 # SmartCart
 
-  <img src="cart.png" height="455">
+Start shopping online!
+
+
+<img src="main.png" height="455">
+
+<img src="cart.png" height="455">
 
 
