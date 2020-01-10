@@ -1,4 +1,10 @@
 # SmartCart
 
+Start shopping online!
 
-Coming soon
+
+<img src="main.png" height="455">
+
+<img src="cart.png" height="455">
+
+
