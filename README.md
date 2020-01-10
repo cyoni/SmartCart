@@ -1,8 +1,5 @@
 # SmartCart
 
+  <img src="cart.png" width="256" height="455">
 
-Coming soon
-
-
-![image](https://github.com/cyoni/SmartCart/blob/master/cart.png)
 
