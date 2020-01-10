@@ -162,9 +162,9 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
-    private int getSum(){
+    private double getSum(){
 
-        int total = 0;
+        double total = 0;
         for (int i=0; i< list.size(); i++){
             total += list.get(i).price*list.get(i).getMyQuantity();
         }
@@ -173,8 +173,9 @@ public class CartActivity extends AppCompatActivity implements recycleview_adapt
     private void setSubTotal(){
 
         TextView t = findViewById(R.id.subtotal);
-        int total = getSum();
-        t.setText("Subtotal: ₪" + total);
+        double total = getSum();
+        String str = "Subtotal: ₪" + total;
+        t.setText(str);
 
     }
 
