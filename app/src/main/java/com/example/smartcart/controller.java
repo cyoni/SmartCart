@@ -46,8 +46,7 @@ public class controller {
     }
 
 
-    // This is the Notification Channel ID. More about this in the next section
-    public static final String NOTIFICATION_CHANNEL_ID = "channel_id";
+
 
     public static String makeUpperLetter(String str) {
         if (str.length() != 0) {
@@ -84,7 +83,7 @@ public class controller {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.back_button)
+                .setSmallIcon(R.drawable.notification_alert)
                 .setContentTitle(title)
                 .setContentText(msg)
               //  .setStyle(new NotificationCompat.BigTextStyle()
@@ -96,14 +95,4 @@ public class controller {
         notificationManager.notify(notificationId, builder.build());
     }
 
-
-    //Notification Channel ID passed as a parameter here will be ignored for all the Android versions below 8.0
-    public void ccc() {
-/*        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
-        builder.setContentTitle("This is heading");
-        builder.setContentText("This is description");
-        builder.setSmallIcon(R.drawable.icon);
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon));
-        Notification notification = builder.build();*/
-    }
 }
