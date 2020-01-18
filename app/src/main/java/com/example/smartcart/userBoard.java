@@ -24,7 +24,7 @@ public class userBoard {
     }
 
     public boolean isManager(){
-        if (accountType.equals("1")) return true;
+        if (accountType != null && accountType.equals("1")) return true;
         else
             return false;
     }
